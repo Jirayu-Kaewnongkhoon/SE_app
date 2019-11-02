@@ -35,19 +35,27 @@ public class Register extends AppCompatActivity  {
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        Fragment fragment;
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             Fragment selectFragment = null;
+            FragmentTransaction transaction=getSupportFragmentManager().beginTransaction();
 
             switch (menuItem.getItemId()){
                 case R.id.KMITL:
+                    transaction.setCustomAnimations(R.anim.enter_left_to_right,R.anim.exit_left_to_rigth);
                     selectFragment = new KmitlFragment();
                     break;
                 case R.id.guest:
+                    transaction.setCustomAnimations(R.anim.enter_rigth_to_left,R.anim.exit_right_to_left);
                     selectFragment = new GuestFragment();
                     break;
             }//switch
-            getSupportFragmentManager().beginTransaction().replace(R.id.frame,selectFragment).commit();
+            transaction.replace(R.id.frame,selectFragment).commit();
+//            getSupportFragmentManager().beginTransaction()
+//                    .replace(R.id.frame,selectFragment)
+                      //.setCustomAnimations(R.anim.enter_rigth_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_rigth)
+//                    .commit();
 
             return  true;
         }//OnNavigation
