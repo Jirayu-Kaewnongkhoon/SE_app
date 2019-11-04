@@ -29,8 +29,8 @@
 
     <RadioGroup
         android:id="@+id/radioGroup"
-        android:layout_width="355dp"
-        android:layout_height="238dp"
+        android:layout_width="336dp"
+        android:layout_height="240dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="46dp"
@@ -73,8 +73,7 @@
 
     <EditText
         android:id="@+id/editText"
-        android:layout_width="0dp"
-        android:layout_height="101dp"
+        android:layout_height="58dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName"
@@ -92,5 +91,5 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText"
-        app:layout_constraintVertical_bias="0.22" />
+        app:layout_constraintVertical_bias="0.13999999" />
 </androidx.constraintlayout.widget.ConstraintLayout>
