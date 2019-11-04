@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SE(app)</string>
+    <string name="app_name">CS Talk</string>
     <string name="detail_forgot1">ป้อนที่อยู่อีเมลแอดเดรสที่คุณใช้ในการลงทะเบียนไว้กับเรา</string>
     <string name="detail_forgot2">แล้วเราจะส่งคำแนะนำเกี่ยวกับวิธีการรีเซ็ตรหัสผ่านใหม่ไปให้คุณ</string>
     <string name="forgotPass">ลืมรหัสผ่าน</string>
