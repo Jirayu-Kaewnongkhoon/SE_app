@@ -1,14 +1,95 @@
 package com.example.seapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.seapp.ui.additional.AdditionalFragment;
+import com.example.seapp.ui.profile.ProfileFragment;
+import com.example.seapp.ui.home.HomeFragment;
+import com.example.seapp.ui.notifications.NotificationsFragment;
+import com.example.seapp.ui.post.PostFragment;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ImageView actionbar_search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        BottomNavigationView navView = findViewById(R.id.nav_view);
+
+        // Passing each menu ID as a set of Ids because each
+        navView.setOnNavigationItemSelectedListener(navListener);
+
+        // menu should be considered as top level destinations.
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.navigation_home, R.id.navigation_notifications, R.id.navigation_post, R.id.navigation_profile, R.id.navigation_additional)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(navView, navController);
     }
+
+    public void setActionBarTitle(String title) {
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar);
+        final TextView titleView = findViewById(R.id.action_bar_title);
+        titleView.setText(title);
+
+        actionbar_search = findViewById(R.id.actionbar_search);
+        actionbar_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    Fragment selectedFragment = null;
+
+                    switch (item.getItemId()) {
+                        case R.id.navigation_home:
+                            selectedFragment = new HomeFragment();
+                            break;
+                        case R.id.navigation_notifications:
+                            selectedFragment = new NotificationsFragment();
+                            break;
+                        case R.id.navigation_post:
+                            selectedFragment = new PostFragment();
+                            break;
+                        case R.id.navigation_profile:
+                            selectedFragment = new ProfileFragment();
+                            break;
+                        case R.id.navigation_additional:
+                            selectedFragment = new AdditionalFragment();
+                            break;
+                    }
+
+                    getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
+                            selectedFragment).commit();
+
+                    return true;
+                }
+            };
+
 }

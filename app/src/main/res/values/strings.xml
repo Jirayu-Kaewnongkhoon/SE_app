@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">SE(app)</string>
+    <string name="app_name">CS Talk</string>
+    <string name="title_home">หน้าหลัก</string>
+    <string name="title_notifications">แจ้งเตือน</string>
+    <string name="title_post">สร้างกระทู้คำถาม</string>
+    <string name="title_profile">โปรไฟล์</string>
+    <string name="title_additional">เพิ่มเติม</string>
 </resources>
