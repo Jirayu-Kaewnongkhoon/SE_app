@@ -17,6 +17,9 @@ public class Report extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
 
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         text = (EditText)findViewById(R.id.other_textfiled);
         radio = (RadioGroup) findViewById(R.id.radioGroup);
