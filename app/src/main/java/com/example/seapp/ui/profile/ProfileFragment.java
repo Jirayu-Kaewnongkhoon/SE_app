@@ -18,6 +18,9 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.seapp.MainActivity;
 import com.example.seapp.R;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class ProfileFragment extends Fragment  {
 
     private ProfileViewModel profileViewModel;
@@ -32,6 +35,7 @@ public class ProfileFragment extends Fragment  {
     private  int remainNameLength;
     private  int lengthStatus;
     private  int remainStatusLength;
+    private  TextView expression;
 
 
 
@@ -54,6 +58,7 @@ public class ProfileFragment extends Fragment  {
         nameLength=(TextView)root.findViewById(R.id.nameLength);
         statusLength=(TextView)root.findViewById(R.id.statusLength);
         commit = (Button)root.findViewById(R.id.commit_btn);
+        expression =(TextView)root.findViewById(R.id.Expression_text);
 //        int lengthName = name.lengthName();
 //        int remainNameLength = maxlength-lengthName;
 //        String convert = String.valueOf(remainNameLength);
@@ -140,21 +145,41 @@ public class ProfileFragment extends Fragment  {
 
 
 
-
+        // Click Commit Buttton
         commit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                name.setBackgroundResource(R.drawable.edittext_grey);
-                status.setBackgroundResource(R.drawable.edittext_grey);
-                nameTxt.setText("ชื่อผู้ใช้");
-                name.setFocusable(false);
-                name.setFocusableInTouchMode(false);
-                status.setFocusable(false);
-                status.setFocusableInTouchMode(false);
-                Toast.makeText(getActivity(), "แก้ไขเรียบร้อยแล้ว", Toast.LENGTH_SHORT).show();
-                commit.setVisibility(View.INVISIBLE);
-                nameLength.setVisibility(View.INVISIBLE);
-                statusLength.setVisibility(View.INVISIBLE);
+                if (isValidFormat(name.getText().toString().trim())) {
+                    name.setBackgroundResource(R.drawable.edittext_grey);
+                    status.setBackgroundResource(R.drawable.edittext_grey);
+                    nameTxt.setText("ชื่อผู้ใช้");
+                    name.setFocusable(false);
+                    name.setFocusableInTouchMode(false);
+                    status.setFocusable(false);
+                    status.setFocusableInTouchMode(false);
+                    Toast.makeText(getActivity(), "แก้ไขเรียบร้อยแล้ว", Toast.LENGTH_SHORT).show();
+                    commit.setVisibility(View.INVISIBLE);
+                    nameLength.setVisibility(View.INVISIBLE);
+                    statusLength.setVisibility(View.INVISIBLE);
+                    expression.setVisibility(View.INVISIBLE);
+                } else {
+                    name.setBackgroundResource(R.drawable.red_border);
+                    expression.setVisibility(View.VISIBLE);
+
+                }
+//                name.setBackgroundResource(R.drawable.edittext_grey);
+//                status.setBackgroundResource(R.drawable.edittext_grey);
+//                nameTxt.setText("ชื่อผู้ใช้");
+//                name.setFocusable(false);
+//                name.setFocusableInTouchMode(false);
+//                status.setFocusable(false);
+//                status.setFocusableInTouchMode(false);
+//                Toast.makeText(getActivity(), "แก้ไขเรียบร้อยแล้ว", Toast.LENGTH_SHORT).show();
+//                commit.setVisibility(View.INVISIBLE);
+//                nameLength.setVisibility(View.INVISIBLE);
+//                statusLength.setVisibility(View.INVISIBLE);
+
+
 
             }
         });
@@ -164,5 +189,17 @@ public class ProfileFragment extends Fragment  {
         return root;
     }
 
+    public boolean isValidFormat(final String name) {
 
-}
+        Pattern pattern;
+        Matcher matcher;
+
+        final String Name_PATTERN = "^[ก-๙a-zA-Z0-9.]*$";
+        pattern = Pattern.compile(Name_PATTERN);
+        matcher = pattern.matcher(name);
+        return matcher.matches();
+
+    }
+
+
+    }
