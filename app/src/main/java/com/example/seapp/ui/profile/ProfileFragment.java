@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.seapp.MainActivity;
 import com.example.seapp.R;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment  {
 
     private ProfileViewModel profileViewModel;
     private Button commit;
@@ -25,11 +25,14 @@ public class ProfileFragment extends Fragment {
     private TextView statusLength;
     private EditText name;
     private EditText status;
+    final int maxlength = 20;
 
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+
         // Set title name in actionbar
         ((MainActivity) getActivity())
                 .setActionBarTitle(getString(R.string.title_profile));
@@ -45,6 +48,12 @@ public class ProfileFragment extends Fragment {
         nameLength=(TextView)root.findViewById(R.id.nameLength);
         statusLength=(TextView)root.findViewById(R.id.statusLength);
         commit = (Button)root.findViewById(R.id.commit_btn);
+//        int length = name.length();
+//        int remain = maxlength-length;
+//        String convert = String.valueOf(remain);
+//        nameLength.setText(convert);
+
+
 
 
 
@@ -56,6 +65,8 @@ public class ProfileFragment extends Fragment {
             nameTxt.setText("ชื่อผู้ใช้ (ห้ามตั้งชื่อที่เข้าข่ายลามกอนาจาร)");
             name.setFocusableInTouchMode(true);
             status.setFocusableInTouchMode(true);
+            commit.setVisibility(View.VISIBLE);
+
 
             }
         });
@@ -69,6 +80,7 @@ public class ProfileFragment extends Fragment {
                 name.setFocusableInTouchMode(false);
                 status.setFocusableInTouchMode(false);
                 Toast.makeText(getActivity(), "แก้ไขเรียบร้อยแล้ว", Toast.LENGTH_SHORT).show();
+                commit.setVisibility(View.INVISIBLE);
 
             }
         });
@@ -77,4 +89,6 @@ public class ProfileFragment extends Fragment {
 
         return root;
     }
+
+
 }
