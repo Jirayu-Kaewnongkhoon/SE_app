@@ -68,7 +68,8 @@ public class ProfileFragment extends Fragment {
                 nameTxt.setText("ชื่อผู้ใช้");
                 name.setFocusableInTouchMode(false);
                 status.setFocusableInTouchMode(false);
-                //Toast.makeText(getContext(),"บันทึกสำเร็จ",1000).show();
+                Toast.makeText(getActivity(), "แก้ไขเรียบร้อยแล้ว", Toast.LENGTH_SHORT).show();
+
             }
         });
 
