@@ -1,6 +1,8 @@
 package com.example.seapp.ui.profile;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,10 @@ public class ProfileFragment extends Fragment  {
     private EditText name;
     private EditText status;
     final int maxlength = 20;
+    private  int lengthName;
+    private  int remainNameLength;
+    private  int lengthStatus;
+    private  int remainStatusLength;
 
 
 
@@ -48,9 +54,9 @@ public class ProfileFragment extends Fragment  {
         nameLength=(TextView)root.findViewById(R.id.nameLength);
         statusLength=(TextView)root.findViewById(R.id.statusLength);
         commit = (Button)root.findViewById(R.id.commit_btn);
-//        int length = name.length();
-//        int remain = maxlength-length;
-//        String convert = String.valueOf(remain);
+//        int lengthName = name.lengthName();
+//        int remainNameLength = maxlength-lengthName;
+//        String convert = String.valueOf(remainNameLength);
 //        nameLength.setText(convert);
 
 
@@ -63,13 +69,77 @@ public class ProfileFragment extends Fragment  {
             name.setBackgroundResource(R.drawable.border);
             status.setBackgroundResource(R.drawable.border);
             nameTxt.setText("ชื่อผู้ใช้ (ห้ามตั้งชื่อที่เข้าข่ายลามกอนาจาร)");
+            name.setFocusable(true);
             name.setFocusableInTouchMode(true);
+            status.setFocusable(true);
             status.setFocusableInTouchMode(true);
             commit.setVisibility(View.VISIBLE);
+            nameLength.setVisibility(View.VISIBLE);
+            statusLength.setVisibility(View.VISIBLE);
 
+            //Intitial Count Text
+            lengthName = name.length();
+            remainNameLength = maxlength- lengthName;
+            String name_Remain = String.valueOf(remainNameLength);
+            nameLength.setText(name_Remain);
+
+            lengthStatus = status.length();
+            remainStatusLength = maxlength - lengthStatus;
+            String status_Remain = String.valueOf(remainStatusLength);
+            statusLength.setText(status_Remain);
+
+
+
+            //Realtime Count Name Text
+            name.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    lengthName = name.length();
+                    remainNameLength = maxlength- lengthName;
+                    String convert = String.valueOf(remainNameLength);
+                    nameLength.setText(convert);
+                }
+            });
 
             }
         });
+
+
+        //Realtime Count Status Text
+        status.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                lengthStatus = status.length();
+                remainStatusLength = maxlength - lengthStatus;
+                String status_Remain = String.valueOf(remainStatusLength);
+                statusLength.setText(status_Remain);
+            }
+        });
+
+
+
+
 
         commit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,10 +147,14 @@ public class ProfileFragment extends Fragment  {
                 name.setBackgroundResource(R.drawable.edittext_grey);
                 status.setBackgroundResource(R.drawable.edittext_grey);
                 nameTxt.setText("ชื่อผู้ใช้");
+                name.setFocusable(false);
                 name.setFocusableInTouchMode(false);
+                status.setFocusable(false);
                 status.setFocusableInTouchMode(false);
                 Toast.makeText(getActivity(), "แก้ไขเรียบร้อยแล้ว", Toast.LENGTH_SHORT).show();
                 commit.setVisibility(View.INVISIBLE);
+                nameLength.setVisibility(View.INVISIBLE);
+                statusLength.setVisibility(View.INVISIBLE);
 
             }
         });
