@@ -194,7 +194,7 @@ public class ProfileFragment extends Fragment  {
         Pattern pattern;
         Matcher matcher;
 
-        final String Name_PATTERN = "^[ก-๙a-zA-Z0-9.]*$";
+        final String Name_PATTERN = "^[ก-๙a-zA-Z0-9. ]*$";
         pattern = Pattern.compile(Name_PATTERN);
         matcher = pattern.matcher(name);
         return matcher.matches();
