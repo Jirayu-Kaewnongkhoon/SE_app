@@ -16,6 +16,18 @@
         <activity android:name=".ui.additional.ContactActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".ui.additional.GuideActivity" />
+        <activity android:name=".ui.intro.lastIntroActivity"
+            android:theme="@style/AppThemeNoActionBar"
+            ></activity>
+        <activity android:name=".ui.intro.IntroActivity">
+           <!-- <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>  -->
+        </activity>
+
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">

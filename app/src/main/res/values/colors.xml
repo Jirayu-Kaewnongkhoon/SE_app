@@ -8,4 +8,7 @@
     <color name="tabIndicator">#ffffff</color>
     <color name="tab_indicator_gray">#c0c0c0</color>
     <color name="black">#000000</color>
+    <color name="cs_orange">#FEA750</color>
+    <color name="cs_green">#55B526</color>
+    <color name="cs_black">#000000</color>
 </resources>
