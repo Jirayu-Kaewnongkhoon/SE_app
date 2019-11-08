@@ -19,7 +19,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="410dp"
-        android:layout_height="167dp"
+        android:layout_height="190dp"
         android:background="@color/colorBackgroundOne"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -32,15 +32,15 @@
             android:layout_height="98dp"
             android:layout_marginStart="76dp"
             android:layout_marginLeft="76dp"
-            android:layout_marginBottom="36dp"
+            android:layout_marginBottom="60dp"
             android:background="@drawable/editpencil"
             app:layout_constraintBottom_toBottomOf="@+id/imageView2"
             app:layout_constraintStart_toStartOf="@+id/imageView2" />
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="118dp"
-            android:layout_height="95dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.51"
@@ -50,12 +50,14 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="133dp"
-            android:layout_height="21dp"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/border"
             android:text="ไส้กรอกไก่ ใส่พริก"
             android:textAlignment="center"
+            android:textAppearance="@style/LamoonBold"
             android:textColor="#000000"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/imageView2"
             app:layout_constraintHorizontal_bias="0.533"
@@ -75,7 +77,9 @@
         android:layout_marginEnd="110dp"
         android:layout_marginRight="110dp"
         android:text="ชื่อผู้ใช้"
+        android:textAppearance="@style/LamoonBold"
         android:textColor="#000000"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,6 +98,7 @@
         android:inputType="textPersonName"
         android:maxLength="20"
         android:paddingLeft="10dp"
+        android:textAppearance="@style/LamoonRegular"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -106,7 +111,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="สถานะ"
+        android:textAppearance="@style/LamoonBold"
         android:textColor="#000000"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/nameEdit"
         app:layout_constraintTop_toBottomOf="@+id/nameEdit" />
 
@@ -121,6 +128,7 @@
         android:inputType="textPersonName"
         android:maxLength="20"
         android:paddingLeft="10dp"
+        android:textAppearance="@style/LamoonRegular"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/nameEdit"
         app:layout_constraintHorizontal_bias="0.0"
@@ -133,7 +141,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="ไอดี"
+        android:textAppearance="@style/LamoonBold"
         android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/statusEdit"
         app:layout_constraintTop_toBottomOf="@+id/statusEdit" />
 
@@ -143,7 +153,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="ประเภทผู้ใช้"
+        android:textAppearance="@style/LamoonBold"
         android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/editText9"
         app:layout_constraintTop_toBottomOf="@+id/editText9" />
 
@@ -159,7 +171,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText3" />
+        app:layout_constraintTop_toBottomOf="@+id/editText3"
+        app:layout_constraintVertical_bias="0.29000002" />
 
     <TextView
         android:id="@+id/nameLength"
@@ -178,6 +191,7 @@
         android:focusableInTouchMode="false"
         android:inputType="textPersonName"
         android:paddingLeft="10dp"
+        android:textAppearance="@style/LamoonRegular"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/editText9"
         app:layout_constraintHorizontal_bias="0.0"
@@ -193,6 +207,7 @@
         android:focusableInTouchMode="false"
         android:inputType="textPersonName"
         android:paddingLeft="10dp"
+        android:textAppearance="@style/LamoonRegular"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/statusEdit"
         app:layout_constraintHorizontal_bias="0.0"
