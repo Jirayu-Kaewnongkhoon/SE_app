@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.seapp.MainActivity;
 import com.example.seapp.R;
+import com.example.seapp.ui.announcement.AnnouncementActivity;
 
 public class AdditionalFragment extends Fragment {
 
@@ -62,7 +63,10 @@ public class AdditionalFragment extends Fragment {
         card_Advertise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                /*FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.nav_host_fragment,new AnnouncementFragment()).commit();*/
+                Intent intent = new Intent(root.getContext(), AnnouncementActivity.class);
+                startActivity(intent);
             }
         });
 

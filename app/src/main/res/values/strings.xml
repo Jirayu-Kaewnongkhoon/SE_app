@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Home</string>
+    <string name="app_name">CS Talk</string>
     <string name="title_home">หน้าหลัก</string>
     <string name="title_notifications">แจ้งเตือน</string>
     <string name="title_post">สร้างกระทู้คำถาม</string>
@@ -28,7 +28,11 @@
     <!-- GuideActivity four-->
     <string name="four_head">ตัวช่วยเพิ่มเติม</string>
     <string name="four_label">ช่วยให้คำแนะนำ และข่าวสารภายใน CS Talk</string>
-    
+
     <!-- Post fragment -->
     <string name="text_placeholder">"คุณอยากจะปรึกษา ระบาย หรือถามปัญหากับเพื่อนๆ พูดออกมาได้เลย"</string>
+
+    <!-- Announcement Activity-->
+    <string name="title_announcement">ประกาศ</string>
+    <string name="detail">รายละเอียด</string>
 </resources>
