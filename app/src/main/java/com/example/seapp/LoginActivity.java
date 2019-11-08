@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.seapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,7 +13,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        TextView text = findViewById(R.id.textView2);
+        TextView text = findViewById(R.id.tvForgotPass);
         text.setPaintFlags(text.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
     }
 }
