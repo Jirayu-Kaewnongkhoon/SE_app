@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#FF9A26</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorBackgroundOne">#EEEEEE</color>
+    <color name="colorCardView">#CECECE</color>
+    <color name="tabIndicator">#ffffff</color>
+    <color name="tab_indicator_gray">#c0c0c0</color>
     <color name="black">#000000</color>
-
 </resources>

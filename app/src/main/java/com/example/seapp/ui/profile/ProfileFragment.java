@@ -71,50 +71,50 @@ public class ProfileFragment extends Fragment  {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            name.setBackgroundResource(R.drawable.border);
-            status.setBackgroundResource(R.drawable.border);
-            nameTxt.setText("ชื่อผู้ใช้ (ห้ามตั้งชื่อที่เข้าข่ายลามกอนาจาร)");
-            name.setFocusable(true);
-            name.setFocusableInTouchMode(true);
-            status.setFocusable(true);
-            status.setFocusableInTouchMode(true);
-            commit.setVisibility(View.VISIBLE);
-            nameLength.setVisibility(View.VISIBLE);
-            statusLength.setVisibility(View.VISIBLE);
+                name.setBackgroundResource(R.drawable.border);
+                status.setBackgroundResource(R.drawable.border);
+                nameTxt.setText("ชื่อผู้ใช้ (ห้ามตั้งชื่อที่เข้าข่ายลามกอนาจาร)");
+                name.setFocusable(true);
+                name.setFocusableInTouchMode(true);
+                status.setFocusable(true);
+                status.setFocusableInTouchMode(true);
+                commit.setVisibility(View.VISIBLE);
+                nameLength.setVisibility(View.VISIBLE);
+                statusLength.setVisibility(View.VISIBLE);
 
-            //Intitial Count Text
-            lengthName = name.length();
-            remainNameLength = maxlength- lengthName;
-            String name_Remain = String.valueOf(remainNameLength);
-            nameLength.setText(name_Remain);
+                //Intitial Count Text
+                lengthName = name.length();
+                remainNameLength = maxlength- lengthName;
+                String name_Remain = String.valueOf(remainNameLength);
+                nameLength.setText(name_Remain);
 
-            lengthStatus = status.length();
-            remainStatusLength = maxlength - lengthStatus;
-            String status_Remain = String.valueOf(remainStatusLength);
-            statusLength.setText(status_Remain);
+                lengthStatus = status.length();
+                remainStatusLength = maxlength - lengthStatus;
+                String status_Remain = String.valueOf(remainStatusLength);
+                statusLength.setText(status_Remain);
 
 
 
-            //Realtime Count Name Text
-            name.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //Realtime Count Name Text
+                name.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                }
+                    }
 
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                }
+                    }
 
-                @Override
-                public void afterTextChanged(Editable editable) {
-                    lengthName = name.length();
-                    remainNameLength = maxlength- lengthName;
-                    String convert = String.valueOf(remainNameLength);
-                    nameLength.setText(convert);
-                }
-            });
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+                        lengthName = name.length();
+                        remainNameLength = maxlength- lengthName;
+                        String convert = String.valueOf(remainNameLength);
+                        nameLength.setText(convert);
+                    }
+                });
 
             }
         });
@@ -202,4 +202,4 @@ public class ProfileFragment extends Fragment  {
     }
 
 
-    }
+}

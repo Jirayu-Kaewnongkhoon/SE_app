@@ -1,8 +1,34 @@
 <resources>
-    <string name="app_name">CS Talk</string>
+    <string name="app_name">Home</string>
     <string name="title_home">หน้าหลัก</string>
     <string name="title_notifications">แจ้งเตือน</string>
     <string name="title_post">สร้างกระทู้คำถาม</string>
     <string name="title_profile">โปรไฟล์</string>
     <string name="title_additional">เพิ่มเติม</string>
+    <string name="profile_name">Mohamed Salah</string>
+    <string name="title_contact">ติดต่อเรา</string>
+    <string name="label_gmail">cstalktalk@gmail.com</string>
+    <string name="label_facebook">CSTalk</string>
+    <string name="label_twitter">CSTalk_Talk</string>
+    <string name="label_line">cs.talk</string>
+
+    <!-- GuideActivity one-->
+    <string name="one_head">ยินดีต้อนรับสู่ CS Talk</string>
+    <string name="one_label">มาทำความรู้จักกันสักนิด</string>
+    <string name="one_label2">ว่า CS Talk ทำอะไรได้บ้าง</string>
+
+    <!-- GuideActivity two-->
+    <string name="two_head">ค้นหาเพื่อดูกระทู้คำถาม</string>
+    <string name="two_label">ค้นหากระทู้คำถามของคุณเอง และสมาชิกผู้อื่นโดยผ่านไอคอนนี้</string>
+
+    <!-- GuideActivity three-->
+    <string name="three_head">สร้างกระทู้คำถาม</string>
+    <string name="three_label">สร้างกระทู้คำถามเพื่อปรึกษา ถามปัญหาต่างๆ</string>
+
+    <!-- GuideActivity four-->
+    <string name="four_head">ตัวช่วยเพิ่มเติม</string>
+    <string name="four_label">ช่วยให้คำแนะนำ และข่าวสารภายใน CS Talk</string>
+    
+    <!-- Post fragment -->
+    <string name="text_placeholder">"คุณอยากจะปรึกษา ระบาย หรือถามปัญหากับเพื่อนๆ พูดออกมาได้เลย"</string>
 </resources>
