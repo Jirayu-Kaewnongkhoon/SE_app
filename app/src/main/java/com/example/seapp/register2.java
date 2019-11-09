@@ -3,6 +3,7 @@ package com.example.seapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -22,6 +23,8 @@ public class register2 extends AppCompatActivity {
     private EditText name;
     private ImageView correct;
     private TextView warning;
+    private Button commit;
+
 
 
 
@@ -30,11 +33,21 @@ public class register2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register2);
+
         buttonboy=(Button)findViewById(R.id.buttonboycs);
         buttongirl=(Button) findViewById(R.id.buttongirlcs);
         name =(EditText)findViewById(R.id.name);
         correct = (ImageView)findViewById(R.id.correctuser);
         warning =(TextView)findViewById(R.id.warning);
+        commit=(Button)findViewById(R.id.cmt2_btn);
+        commit.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),Register.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         buttonboy.setOnClickListener(new OnClickListener() {
             @Override

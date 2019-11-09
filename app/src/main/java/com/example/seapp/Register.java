@@ -3,9 +3,9 @@ package com.example.seapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +14,7 @@ import android.widget.Button;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Register extends AppCompatActivity  {
+    private Button commit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,17 @@ public class Register extends AppCompatActivity  {
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame,new KmitlFragment()).commit();
+
+        commit = (Button)findViewById(R.id.cmt2_btn);
+        commit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),register2.class);
+                startActivity(intent);
+                finish();
+
+            }
+        });
     }
 
 
@@ -40,6 +52,10 @@ public class Register extends AppCompatActivity  {
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             Fragment selectFragment = null;
             FragmentTransaction transaction=getSupportFragmentManager().beginTransaction();
+
+
+
+
 
             switch (menuItem.getItemId()){
                 case R.id.KMITL:
@@ -52,6 +68,9 @@ public class Register extends AppCompatActivity  {
                     break;
             }//switch
             transaction.replace(R.id.frame,selectFragment).commit();
+
+
+
 //            getSupportFragmentManager().beginTransaction()
 //                    .replace(R.id.frame,selectFragment)
                       //.setCustomAnimations(R.anim.enter_rigth_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_rigth)
