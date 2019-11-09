@@ -28,14 +28,13 @@
             android:layout_height="25dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/bordertextview"
-            android:text="TextView"
+            android:paddingLeft="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/correctid"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/name"
             app:layout_constraintTop_toBottomOf="@+id/name"
-            app:layout_constraintVertical_bias="0.621"
-            android:paddingLeft="10dp"/>
+            app:layout_constraintVertical_bias="0.621" />
 
         <ImageView
             android:id="@+id/correctid"
@@ -95,9 +94,10 @@
             android:background="@drawable/girlcs"
             app:layout_constraintBottom_toTopOf="@+id/name"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.607"
+            app:layout_constraintHorizontal_bias="0.126"
             app:layout_constraintStart_toEndOf="@+id/buttonboycs"
-            app:layout_constraintTop_toTopOf="@+id/buttonboycs" />
+            app:layout_constraintTop_toTopOf="@+id/buttonboycs"
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/buttonboycs"
@@ -107,7 +107,7 @@
             android:background="@drawable/boycs"
             app:layout_constraintBottom_toTopOf="@+id/name"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.155"
+            app:layout_constraintHorizontal_bias="0.277"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
@@ -136,13 +136,18 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="TextView"
+            android:id="@+id/warning"
+            android:layout_width="269dp"
+            android:layout_height="10dp"
+            android:text="อนุญาติให้ใช้ได้เฉพาะตัวอักกษร ,ตัวเลข, และเครื่องหมายมหัพภาค(.) เท่านั้น"
+            android:textColor="@color/black"
+            android:textSize="8sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/textView6"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="211dp" />
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            app:layout_constraintVertical_bias="0.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button

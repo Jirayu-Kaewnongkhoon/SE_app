@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,6 +21,7 @@ public class register2 extends AppCompatActivity {
     Button buttonboy,buttongirl;
     private EditText name;
     private ImageView correct;
+    private TextView warning;
 
 
 
@@ -32,6 +34,7 @@ public class register2 extends AppCompatActivity {
         buttongirl=(Button) findViewById(R.id.buttongirlcs);
         name =(EditText)findViewById(R.id.name);
         correct = (ImageView)findViewById(R.id.correctuser);
+        warning =(TextView)findViewById(R.id.warning);
 
         buttonboy.setOnClickListener(new OnClickListener() {
             @Override
@@ -51,6 +54,8 @@ public class register2 extends AppCompatActivity {
 
 
 
+
+
         name.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -63,9 +68,11 @@ public class register2 extends AppCompatActivity {
                 if (isValidFormat(name.getText().toString().trim())&&name.length()>0) {
                     correct.setVisibility(View.VISIBLE);
                     name.setBackgroundResource(R.drawable.borderbox);
+                    warning.setVisibility(View.INVISIBLE);
                 }
                 else  {
                     correct.setVisibility(View.INVISIBLE);
+                    warning.setVisibility(View.VISIBLE);
                     name.setBackgroundResource(R.drawable.red_border);
                 }
 
