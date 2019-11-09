@@ -62,15 +62,18 @@ public class register2 extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (isValidFormat(name.getText().toString().trim())&&name.length()>0) {
                     correct.setVisibility(View.VISIBLE);
+                    name.setBackgroundResource(R.drawable.borderbox);
                 }
                 else  {
                     correct.setVisibility(View.INVISIBLE);
+                    name.setBackgroundResource(R.drawable.red_border);
                 }
 
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+
 
             }
         });
