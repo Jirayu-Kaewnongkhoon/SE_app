@@ -3,24 +3,20 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.content.Intent;
 
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 import android.view.View.OnClickListener;
-import android.widget.ToggleButton;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class profile extends AppCompatActivity {
+public class register2 extends AppCompatActivity {
     Button buttonboy,buttongirl;
     private EditText name;
     private ImageView correct;
@@ -31,7 +27,7 @@ public class profile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_register2);
         buttonboy=(Button)findViewById(R.id.buttonboycs);
         buttongirl=(Button) findViewById(R.id.buttongirlcs);
         name =(EditText)findViewById(R.id.name);
