@@ -34,7 +34,8 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/name"
             app:layout_constraintTop_toBottomOf="@+id/name"
-            app:layout_constraintVertical_bias="0.621" />
+            app:layout_constraintVertical_bias="0.621"
+            android:paddingLeft="10dp"/>
 
         <ImageView
             android:id="@+id/correctid"
@@ -82,6 +83,7 @@
             android:maxLength="20"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:paddingLeft="10dp"
             />
 
         <Button
