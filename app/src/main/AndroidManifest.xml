@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/logocrop"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.announcement.Detail3Activity"></activity>
+        <activity android:name=".SearchFriend"></activity>
+        <activity android:name=".ui.announcement.Detail3Activity" />
         <activity android:name=".ui.announcement.Detail2Activity" />
         <activity android:name=".ui.announcement.Detail1Activity" />
         <activity android:name=".ui.announcement.AnnouncementActivity" />

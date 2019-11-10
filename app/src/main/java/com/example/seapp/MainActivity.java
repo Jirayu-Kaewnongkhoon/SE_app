@@ -63,6 +63,13 @@ public class MainActivity extends AppCompatActivity {
                 actionbar_search.setImageResource(R.drawable.icon_search_friend);
                 actionbar_search.setVisibility(View.VISIBLE);
                 actionbar_text.setVisibility(View.GONE);
+                actionbar_search.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(MainActivity.this, SearchFriend.class);
+                        startActivity(intent);
+                    }
+                });
                 break;
             case "สร้างกระทู้คำถาม":
                 actionbar_text.setText("Post");
