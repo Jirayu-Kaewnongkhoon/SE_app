@@ -15,7 +15,7 @@
         android:id="@+id/imageView"
         android:layout_width="225dp"
         android:layout_height="191dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginBottom="488dp"
         android:padding="10dp"
         android:src="@mipmap/logocrop"
@@ -33,11 +33,11 @@
         android:gravity="center"
         android:text="เข้าสู่ระบบ"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -63,8 +63,8 @@
         android:backgroundTint="#DADADA"
         android:ems="10"
         android:hint="อีเมล"
-        android:inputType="text"
-        android:paddingStart="20dp"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="20dp"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -81,7 +81,7 @@
         android:ems="10"
         android:hint="รหัสผ่าน"
         android:inputType="textPassword"
-        android:paddingStart="20dp"
+        android:paddingLeft="20dp"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -98,11 +98,11 @@
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.907"
+        app:layout_constraintEnd_toEndOf="@+id/etPassword"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etPassword"
-        app:layout_constraintVertical_bias="0.047" />
+        app:layout_constraintVertical_bias="0.054" />
 
     <Button
         android:id="@+id/btnLogin"
