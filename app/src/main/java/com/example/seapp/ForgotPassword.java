@@ -11,7 +11,7 @@ import android.widget.EditText;
 
 public class ForgotPassword extends AppCompatActivity {
 
-    Dialog dlReset;
+    private Dialog dlReset;
     private Button confirm;
     private EditText email;
 

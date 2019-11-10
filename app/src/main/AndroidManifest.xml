@@ -9,9 +9,14 @@
         android:roundIcon="@mipmap/logocrop"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PasswordSent"
-            android:theme="@style/AppTheme.Dialog">
-        </activity>
+        <activity
+            android:name=".RegisterSuccess"
+            android:theme="@style/AppTheme.Dialog"></activity>
+        <activity android:name=".Register" />
+        <activity android:name=".register2" />
+        <activity
+            android:name=".PasswordSent"
+            android:theme="@style/AppTheme.Dialog"></activity>
         <activity android:name=".ForgotPassword" />
         <activity android:name=".LoginActivity">
             <intent-filter>
