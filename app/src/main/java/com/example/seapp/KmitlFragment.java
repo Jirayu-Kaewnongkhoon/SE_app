@@ -53,7 +53,7 @@ public class KmitlFragment extends Fragment {
 
     public void add(String fname,String lname){
        User users = new User(fname,lname);
-        myRef.child(userId).child("name").setValue(users);
+        myRef.child(userId).setValue(users);
 //       myRef.child(userId).setValue(fname);
 //        myRef.child(userId).setValue(lname);
     }
