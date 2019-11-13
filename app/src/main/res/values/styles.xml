@@ -16,4 +16,15 @@
         <item name="fontPath">font/FC Lamoon Regular ver 1.00.ttf</item>
     </style>
 
+    <!-- ui -->
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimaryDark">@android:color/black</item>
+    </style>
+
+
+    <style name="AppTheme.Dialog" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+
 </resources>
