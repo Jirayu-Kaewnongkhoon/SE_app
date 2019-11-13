@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,23 +28,33 @@ public class KmitlFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.kmitl_fragment, container,false);
 
-//        commit = (Button)getActivity().findViewById(R.id.cmt2_btn);
-//
-//        database = FirebaseDatabase.getInstance();
-//        myRef = database.getReference("User");
-//        userId = myRef.push().getKey();
-//
-//        commit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                add(fname.getText().toString().trim(),lname.getText().toString().trim());
-//            }
-//        });
+        commit = (Button)getActivity().findViewById(R.id.cmt2_btn);
+        fname = (EditText)v.findViewById(R.id.Fname);
+        lname =(EditText)v.findViewById(R.id.Lname);
+
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("User");
+        userId = myRef.push().getKey();
+
+        commit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                commit.setText("Hi");
+//                String name =fname.getText().toString().trim();
+//                String llname =lname.getText().toString().trim();
+                //myRef.child(userId).setValue(name);
+                //myRef.child(userId).setValue(llname);
+                add(fname.getText().toString().trim(),lname.getText().toString().trim());
+            }
+        });
 
         return v;
     }
 
     public void add(String fname,String lname){
-        myRef.child(userId).setValue(fname,lname);
+       User users = new User(fname,lname);
+        myRef.child(userId).child("name").setValue(users);
+//       myRef.child(userId).setValue(fname);
+//        myRef.child(userId).setValue(lname);
     }
 }

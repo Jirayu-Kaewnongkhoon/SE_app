@@ -12,18 +12,20 @@
         <activity
             android:name=".RegisterSuccess"
             android:theme="@style/AppTheme.Dialog"></activity>
-        <activity android:name=".Register" />
+        <activity android:name=".Register">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".register2" />
         <activity
             android:name=".PasswordSent"
             android:theme="@style/AppTheme.Dialog"></activity>
         <activity android:name=".ForgotPassword" />
         <activity android:name=".LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
