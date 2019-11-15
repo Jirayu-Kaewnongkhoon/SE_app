@@ -32,8 +32,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/correctid"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/name"
-            app:layout_constraintTop_toBottomOf="@+id/name"
+            app:layout_constraintStart_toStartOf="@+id/username"
+            app:layout_constraintTop_toBottomOf="@+id/username"
             app:layout_constraintVertical_bias="0.621" />
 
         <TextView
@@ -50,7 +50,7 @@
             app:layout_constraintVertical_bias="0.583" />
 
         <EditText
-            android:id="@+id/name"
+            android:id="@+id/username"
             android:layout_width="263dp"
             android:layout_height="25dp"
             android:layout_marginStart="16dp"
@@ -80,11 +80,11 @@
             android:layout_height="26dp"
             android:background="@drawable/finish"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/name"
+            app:layout_constraintBottom_toBottomOf="@+id/username"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/name"
-            app:layout_constraintTop_toTopOf="@+id/name" />
+            app:layout_constraintStart_toEndOf="@+id/username"
+            app:layout_constraintTop_toTopOf="@+id/username" />
 
         <Button
             android:id="@+id/buttongirlcs"
@@ -92,7 +92,7 @@
             android:layout_height="78dp"
             android:layout_marginBottom="64dp"
             android:background="@drawable/girlcs"
-            app:layout_constraintBottom_toTopOf="@+id/name"
+            app:layout_constraintBottom_toTopOf="@+id/username"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.126"
             app:layout_constraintStart_toEndOf="@+id/buttonboycs"
@@ -105,7 +105,7 @@
             android:layout_height="78dp"
             android:layout_marginBottom="60dp"
             android:background="@drawable/boycs"
-            app:layout_constraintBottom_toTopOf="@+id/name"
+            app:layout_constraintBottom_toTopOf="@+id/username"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.277"
             app:layout_constraintStart_toStartOf="parent" />
@@ -116,7 +116,7 @@
             android:layout_height="wrap_content"
             android:text="ชื่อผู้ใช้"
             android:textColor="@color/black"
-            app:layout_constraintBottom_toTopOf="@+id/name"
+            app:layout_constraintBottom_toTopOf="@+id/username"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
@@ -146,7 +146,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/textView6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/name"
+            app:layout_constraintTop_toBottomOf="@+id/username"
             app:layout_constraintVertical_bias="0.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

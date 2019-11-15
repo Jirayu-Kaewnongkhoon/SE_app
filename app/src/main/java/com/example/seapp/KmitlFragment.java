@@ -1,5 +1,6 @@
 package com.example.seapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,21 +77,18 @@ public class KmitlFragment extends Fragment {
                         Toast.makeText(getActivity(), "ชื่อไม่ตรงตามรูปแบบ", Toast.LENGTH_SHORT).show();
                     }
                 }
-//                if(fname.length()>0 && lname.length()>0 && email.length()>0 && password.length()>0 && confirmpass.length()>0) {
-//                    if (isValidNameFormat()) {
-//                        //Toast.makeText(getActivity(), "Correct", Toast.LENGTH_SHORT).show();
-//                    } else {
-//                        Toast.makeText(getActivity(), "ชื่อไม่ตรงตามรูปแบบ", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//                else{
-//                    Toast.makeText(getActivity(), "กรุณากรอกข้อมูลให้ครบทุกช่อง", Toast.LENGTH_SHORT).show();
-//                }
-
 
                 if(!(password.getText().toString().trim()).equals(confirmpass.getText().toString().trim())){
                     Toast.makeText(getActivity(), "พาสเวิร์ดไม่ตรงกัน", Toast.LENGTH_SHORT).show();
                 }
+                Intent intent = new Intent(getActivity(), register2.class);
+                intent.putExtra("fname",fname.getText().toString().trim());
+                intent.putExtra("lname",lname.getText().toString().trim());
+                intent.putExtra("email",email.getText().toString().trim());
+                intent.putExtra("password",password.getText().toString().trim());
+                intent.putExtra("userType",userType);
+                intent.putExtra("userType",inType);
+                startActivity(intent);
 
 
             }//OnClick
@@ -103,61 +101,12 @@ public class KmitlFragment extends Fragment {
     } //OncreateView
 
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        if(mAuth.getCurrentUser() != null){
-//
-//        }
-//
-//    }
 
-
-//    public  void Registation(final String fname, final String lname){
-//        mAuth.createUserWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim())
-//                .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//                            // Sign in success, update UI with the signed-in user's information
-//                            Log.d(TAG, "createUserWithEmail:success");
-//                            FirebaseUser user = mAuth.getCurrentUser();
-//                            User users = new User(fname,lname);
-//
-//                            //myRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(users);
-//                            FirebaseDatabase.getInstance().getReference("User").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                @Override
-//                                public void onComplete(@NonNull Task<Void> task) {
-//                                    if(task.isSuccessful()){
-//                                        Toast.makeText(getActivity(),"Successs",Toast.LENGTH_LONG).show();
-//
-//                                    }
-//                                    else{
-//                                        //
-//                                        Toast.makeText(getActivity(),"Failed",Toast.LENGTH_LONG).show();
-//                                    }
-//                                }
-//                            });
-//
-//                        } else {
-//                            // If sign in fails, display a message to the user.
-//                            //Log.w(TAG, "createUserWithEmail:failure", task.getException());
-//                            Toast.makeText(getActivity(), "Authentication failed.",
-//                                    Toast.LENGTH_SHORT).show();
-//                        }
-//
-//                        // ...
-//                    }
-//
-//
-//                });
-//
-//    }
 
     public void setComponent(View v){
         commit = (Button)getActivity().findViewById(R.id.cmt2_btn);
         fname = (EditText)v.findViewById(R.id.Fname);
-        lname =(EditText)v.findViewById(R.id.Fname);
+        lname =(EditText)v.findViewById(R.id.Lname);
         email =(EditText)v.findViewById(R.id.email);
         password =(EditText)v.findViewById(R.id.password);
         confirmpass=(EditText)v.findViewById(R.id.comfirm);
@@ -174,15 +123,7 @@ public class KmitlFragment extends Fragment {
         return matcher.matches();
     }
 
-//   public boolean isValidEmailFormat(){
-//    Pattern pattern;
-//    Matcher matcher;
-//    final String Name_PATTERN = "^[_A-Za-z0-9-\\\\+]+(\\\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\\\.[A-Za-z0-9]+)*(\\\\.[A-Za-z]{2,})$";
-//
-//    pattern = Pattern.compile(Name_PATTERN);
-//    matcher = pattern.matcher(email.getText().toString().trim());
-//    return matcher.matches();
-//    }
+
 
 
 

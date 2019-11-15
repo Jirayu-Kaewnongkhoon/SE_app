@@ -8,11 +8,13 @@ public class User {
     public String inType; //นศ / บุคลากร
     public String pic;
 
-    public User(String fname,String lname,String userType,String inType){
+    public User(String username,String fname,String lname,String userType,String inType,String pic){
         this.username = username;
+        this.fname = fname;
         this.lname =  lname;
         this.userType = userType;
         this.inType = inType;
+        this.pic = pic;
 
     }
 
