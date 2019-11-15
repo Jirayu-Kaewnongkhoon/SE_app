@@ -18,11 +18,13 @@ import com.example.seapp.MainActivity;
 import com.example.seapp.R;
 import com.example.seapp.ui.announcement.AnnouncementActivity;
 import com.example.seapp.ui.home.HomeFragment;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class AdditionalFragment extends Fragment {
 
     private AdditionalViewModel additionalViewModel;
     private CardView card_History, card_Reply, card_Guide, card_Advertise, card_Contact, card_Logout;
+    private FirebaseAuth mAuth;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -89,9 +91,12 @@ public class AdditionalFragment extends Fragment {
         card_Logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mAuth = FirebaseAuth.getInstance();
+                mAuth.signOut();
                 Intent intent = new Intent(root.getContext(), LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
 

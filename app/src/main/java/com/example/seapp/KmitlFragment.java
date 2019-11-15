@@ -65,20 +65,31 @@ public class KmitlFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 commit.setText("Hi");
-                if(fname.length()>0 && lname.length()>0 && email.length()>0 && password.length()>0 && confirmpass.length()>0) {
+                if(fname.getText().toString().trim().isEmpty() || lname.getText().toString().trim().isEmpty()
+                    || email.getText().toString().trim().isEmpty() || password.getText().toString().trim().isEmpty()
+                    || confirmpass.getText().toString().trim().isEmpty())
+                    Toast.makeText(getActivity(), "กรุณากรอกข้อมูลให้ครบทุกช่อง", Toast.LENGTH_SHORT).show();
+                else {
                     if (isValidNameFormat()) {
                         //Toast.makeText(getActivity(), "Correct", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getActivity(), "ชื่อไม่ตรงตามรูปแบบ", Toast.LENGTH_SHORT).show();
                     }
                 }
-                else{
-                    Toast.makeText(getActivity(), "กรุณากรอกข้อมูลให้ครบทุกช่อง", Toast.LENGTH_SHORT).show();
-                }
+//                if(fname.length()>0 && lname.length()>0 && email.length()>0 && password.length()>0 && confirmpass.length()>0) {
+//                    if (isValidNameFormat()) {
+//                        //Toast.makeText(getActivity(), "Correct", Toast.LENGTH_SHORT).show();
+//                    } else {
+//                        Toast.makeText(getActivity(), "ชื่อไม่ตรงตามรูปแบบ", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//                else{
+//                    Toast.makeText(getActivity(), "กรุณากรอกข้อมูลให้ครบทุกช่อง", Toast.LENGTH_SHORT).show();
+//                }
 
 
                 if(!(password.getText().toString().trim()).equals(confirmpass.getText().toString().trim())){
-                    Toast.makeText(getActivity(), "พาสเวิร์เดไม่เหมือนกัน", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "พาสเวิร์ดไม่ตรงกัน", Toast.LENGTH_SHORT).show();
                 }
 
 
