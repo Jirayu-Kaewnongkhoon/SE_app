@@ -12,19 +12,34 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class register2 extends AppCompatActivity {
     Button buttonboy,buttongirl;
-    private EditText name;
+    private EditText username;
     private ImageView correct;
     private TextView warning;
     private Button commit;
     private Dialog dlRegis;
+    private String fname,lname,email,password,userType,inType;
+    public FirebaseDatabase database;
+    public DatabaseReference myRef;
+    private FirebaseAuth mAuth;
+    private String pic;
 
 
 
@@ -37,28 +52,22 @@ public class register2 extends AppCompatActivity {
 
         buttonboy=(Button)findViewById(R.id.buttonboycs);
         buttongirl=(Button) findViewById(R.id.buttongirlcs);
-        name =(EditText)findViewById(R.id.name);
+        username =(EditText)findViewById(R.id.username);
         correct = (ImageView)findViewById(R.id.correctuser);
         warning =(TextView)findViewById(R.id.warning);
+        commit = (Button)findViewById(R.id.cmt2_btn);
+        mAuth = FirebaseAuth.getInstance();
 
+        checkText();
 
         dlRegis = new Dialog(this);
-
-        /*commit=(Button)findViewById(R.id.cmt2_btn);
-        commit.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),RegisterSuccess.class);
-                startActivity(intent);
-                finish();
-            }
-        });*/
 
         buttonboy.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 buttonboy.setBackgroundResource(R.drawable.boycspress);
                 buttongirl.setBackgroundResource(R.drawable.girlcs);
+                pic = "Boy";
             }
         });
         buttongirl.setOnClickListener(new OnClickListener() {
@@ -66,44 +75,27 @@ public class register2 extends AppCompatActivity {
             public void onClick(View v) {
                 buttongirl.setBackgroundResource(R.drawable.girlcspress);
                 buttonboy.setBackgroundResource(R.drawable.boycs);
+                pic = "Girl";
             }
         });
 
+         fname = getIntent().getExtras().getString("fname");
+         lname = getIntent().getExtras().getString("lname");
+         email= getIntent().getExtras().getString("email");
+         password = getIntent().getExtras().getString("password");
+         userType = getIntent().getExtras().getString("userType");
+         inType = getIntent().getExtras().getString("inType");
 
-
-
-
-
-        name.addTextChangedListener(new TextWatcher() {
-
+        commit.setOnClickListener(new OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (isValidFormat(name.getText().toString().trim())&&name.length()>0) {
-                    correct.setVisibility(View.VISIBLE);
-                    name.setBackgroundResource(R.drawable.borderbox);
-                    warning.setVisibility(View.INVISIBLE);
-                }
-                else  {
-                    correct.setVisibility(View.INVISIBLE);
-                    warning.setVisibility(View.VISIBLE);
-                    name.setBackgroundResource(R.drawable.red_border);
-                }
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
+            public void onClick(View view) {
+                Registation();
 
             }
         });
 
-    }
+    } //OnCreate
+
 
     public void Popup(View v){
 
@@ -125,6 +117,77 @@ public class register2 extends AppCompatActivity {
 
 
 
+        public  void Registation(){
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            //Log.d(TAG, "createUserWithEmail:success");
+                            FirebaseUser users = mAuth.getCurrentUser();
+                            User user = new User(username.getText().toString().trim(),fname,lname,userType,inType,pic);
+
+                            //myRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(users);
+                            FirebaseDatabase.getInstance().getReference("User").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        Toast.makeText(register2.this,"Successs",Toast.LENGTH_LONG).show();
+
+                                    }
+                                    else{
+                                        //
+                                        Toast.makeText(register2.this,"Failed",Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            });
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            //Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(register2.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                        // ...
+                    }
+
+
+                });
+
+    }//Regis Method
+
+    public void checkText(){
+        username.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (isValidFormat(username.getText().toString().trim())&& username.length()>0) {
+                    correct.setVisibility(View.VISIBLE);
+                    username.setBackgroundResource(R.drawable.borderbox);
+                    warning.setVisibility(View.INVISIBLE);
+                }
+                else  {
+                    correct.setVisibility(View.INVISIBLE);
+                    warning.setVisibility(View.VISIBLE);
+                    username.setBackgroundResource(R.drawable.red_border);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+
+            }
+        });
+    }
 
 
     public boolean isValidFormat(final String name) {
@@ -136,6 +199,14 @@ public class register2 extends AppCompatActivity {
         pattern = Pattern.compile(Name_PATTERN);
         matcher = pattern.matcher(name);
         return matcher.matches();
+    }
+
+        @Override
+    public void onStart() {
+        super.onStart();
+        if(mAuth.getCurrentUser() != null){
+
+        }
 
     }
 }

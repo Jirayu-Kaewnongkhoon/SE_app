@@ -81,28 +81,35 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login(){
-        mAuth.signInWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim())
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(LoginActivity.this, "Authentication Success.",
-                                    Toast.LENGTH_SHORT).show();
+        if(email.getText().toString().trim().isEmpty() || password.getText().toString().trim().isEmpty()){
+            Toast.makeText(getApplication(), "กรุณากรอกข้อมูลให้ครบ", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            mAuth.signInWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim())
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+//                                FirebaseUser user = mAuth.getCurrentUser();
+                                Toast.makeText(LoginActivity.this, "เข้าสู่ระบบสำเร็จ", Toast.LENGTH_SHORT).show();
+
+                                startActivity(new Intent(LoginActivity.this, MainActivity.class)
+                                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                                finish();
 
 
-                        } else {
-                            // If sign in fails, display a message to the user.
+                            } else {
+                                // If sign in fails, display a message to the user.
 
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "เกิดข้อผิดพลาด", Toast.LENGTH_SHORT).show();
 
+                            }
+
+                            // ...
                         }
-
-                        // ...
-                    }
-                });
+                    });
+        }
     }
 
     @Override
@@ -115,3 +122,5 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 }
+
+

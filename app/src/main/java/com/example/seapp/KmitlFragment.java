@@ -1,5 +1,6 @@
 package com.example.seapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,21 +66,31 @@ public class KmitlFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 commit.setText("Hi");
-                if(fname.length()>0 && lname.length()>0 && email.length()>0 && password.length()>0 && confirmpass.length()>0) {
+                if(fname.getText().toString().trim().isEmpty() || lname.getText().toString().trim().isEmpty()
+                        || email.getText().toString().trim().isEmpty() || password.getText().toString().trim().isEmpty()
+                        || confirmpass.getText().toString().trim().isEmpty())
+                    Toast.makeText(getActivity(), "กรุณากรอกข้อมูลให้ครบทุกช่อง", Toast.LENGTH_SHORT).show();
+                else {
                     if (isValidNameFormat()) {
                         //Toast.makeText(getActivity(), "Correct", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getActivity(), "ชื่อไม่ตรงตามรูปแบบ", Toast.LENGTH_SHORT).show();
                     }
                 }
-                else{
-                    Toast.makeText(getActivity(), "กรุณากรอกข้อมูลให้ครบทุกช่อง", Toast.LENGTH_SHORT).show();
-                }
 
 
                 if(!(password.getText().toString().trim()).equals(confirmpass.getText().toString().trim())){
-                    Toast.makeText(getActivity(), "พาสเวิร์เดไม่เหมือนกัน", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "พาสเวิร์ดไม่ตรงกัน", Toast.LENGTH_SHORT).show();
                 }
+
+                Intent intent = new Intent(getActivity(), register2.class);
+                intent.putExtra("fname",fname.getText().toString().trim());
+                intent.putExtra("lname",lname.getText().toString().trim());
+                intent.putExtra("email",email.getText().toString().trim());
+                intent.putExtra("password",password.getText().toString().trim());
+                intent.putExtra("userType",userType);
+                intent.putExtra("userType",inType);
+                startActivity(intent);
 
 
             }//OnClick
@@ -101,47 +112,6 @@ public class KmitlFragment extends Fragment {
 //
 //    }
 
-
-//    public  void Registation(final String fname, final String lname){
-//        mAuth.createUserWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim())
-//                .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//                            // Sign in success, update UI with the signed-in user's information
-//                            Log.d(TAG, "createUserWithEmail:success");
-//                            FirebaseUser user = mAuth.getCurrentUser();
-//                            User users = new User(fname,lname);
-//
-//                            //myRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(users);
-//                            FirebaseDatabase.getInstance().getReference("User").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                @Override
-//                                public void onComplete(@NonNull Task<Void> task) {
-//                                    if(task.isSuccessful()){
-//                                        Toast.makeText(getActivity(),"Successs",Toast.LENGTH_LONG).show();
-//
-//                                    }
-//                                    else{
-//                                        //
-//                                        Toast.makeText(getActivity(),"Failed",Toast.LENGTH_LONG).show();
-//                                    }
-//                                }
-//                            });
-//
-//                        } else {
-//                            // If sign in fails, display a message to the user.
-//                            //Log.w(TAG, "createUserWithEmail:failure", task.getException());
-//                            Toast.makeText(getActivity(), "Authentication failed.",
-//                                    Toast.LENGTH_SHORT).show();
-//                        }
-//
-//                        // ...
-//                    }
-//
-//
-//                });
-//
-//    }
 
     public void setComponent(View v){
         commit = (Button)getActivity().findViewById(R.id.cmt2_btn);
