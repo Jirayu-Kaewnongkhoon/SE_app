@@ -14,6 +14,7 @@ import com.example.seapp.ui.profile.ProfileFragment;
 import com.example.seapp.ui.home.HomeFragment;
 import com.example.seapp.ui.notifications.NotificationsFragment;
 import com.example.seapp.ui.post.PostFragment;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -27,9 +28,10 @@ import androidx.navigation.ui.NavigationUI;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
-
+    private FirebaseAuth mAuth;
     private ImageView actionbar_search;
     private TextView actionbar_text;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

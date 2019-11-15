@@ -94,7 +94,7 @@
         android:textColor="@color/black"/>
 
     <EditText
-        android:id="@+id/editText6"
+        android:id="@+id/email"
         android:layout_width="263dp"
         android:layout_height="25dp"
         android:layout_marginTop="8dp"
@@ -112,13 +112,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="รหัสผ่าน"
-        app:layout_constraintStart_toStartOf="@+id/editText6"
-        app:layout_constraintTop_toBottomOf="@+id/editText6"
+        app:layout_constraintStart_toStartOf="@+id/email"
+        app:layout_constraintTop_toBottomOf="@+id/email"
         android:textColor="@color/black"
         />
 
     <EditText
-        android:id="@+id/editText7"
+        android:id="@+id/password"
         android:layout_width="263dp"
         android:layout_height="25dp"
         android:layout_marginTop="8dp"
@@ -136,12 +136,12 @@
         android:layout_marginTop="16dp"
         android:text="ยืนยันรหัสผ่าน"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@+id/editText7"
-        app:layout_constraintTop_toBottomOf="@+id/editText7"
+        app:layout_constraintStart_toStartOf="@+id/password"
+        app:layout_constraintTop_toBottomOf="@+id/password"
         />
 
     <EditText
-        android:id="@+id/editText8"
+        android:id="@+id/comfirm"
         android:layout_width="263dp"
         android:layout_height="25dp"
         android:layout_marginTop="8dp"
