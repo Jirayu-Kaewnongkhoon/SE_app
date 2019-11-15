@@ -1,7 +1,6 @@
 package com.example.seapp;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,21 +13,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class KmitlFragment extends Fragment {
     private Button commit;
@@ -38,7 +28,7 @@ public class KmitlFragment extends Fragment {
     public DatabaseReference myRef;
     private String userId;
     private FirebaseAuth mAuth;
-    private String userType ="1";
+    private String userType ="Kmitl";
     private String inType;
 
 
@@ -51,57 +41,65 @@ public class KmitlFragment extends Fragment {
 
 
         //database = FirebaseDatabase.getInstance();
-        mAuth = FirebaseAuth.getInstance();
+        //mAuth = FirebaseAuth.getInstance();
         //myRef = database.getReference("User");
 
-
-
-
-
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+                View radioButton = radioGroup.findViewById(checkedId);
+                int index = radioGroup.indexOfChild(radioButton);
+                switch (index) {
+                    case 0: // first button
+                        inType="นักศึกษา";
+                        break;
+                    case 1: // secondbutton
+                        inType="บุคลากร";
+                        break;
+                }
+            }
+        }); //Check index in radioGroup for define In Kmitl Type
 
 
         commit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 commit.setText("Hi");
-                if(fname.length()>0 && lname.length()>0) {
-                    if (isValidNameFormat(fname.getText().toString().trim(), lname.getText().toString().trim())) {
-                        Toast.makeText(getActivity(), "Correct", Toast.LENGTH_SHORT).show();
+                if(fname.length()>0 && lname.length()>0 && email.length()>0 && password.length()>0 && confirmpass.length()>0) {
+                    if (isValidNameFormat()) {
+                        //Toast.makeText(getActivity(), "Correct", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "ชื่อไม่ตรงตามรูปแบบ", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else{
-                    Toast.makeText(getActivity(), "FirstName and LastName cannot be null", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "กรุณากรอกข้อมูลให้ครบทุกช่อง", Toast.LENGTH_SHORT).show();
                 }
 
 
                 if(!(password.getText().toString().trim()).equals(confirmpass.getText().toString().trim())){
-                    Toast.makeText(getActivity(), "Password is not equals", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "พาสเวิร์เดไม่เหมือนกัน", Toast.LENGTH_SHORT).show();
                 }
 
 
-            }
-
-
-
+            }//OnClick
 
 
 
         });
 
         return v;
-    }//OncreateView
+    } //OncreateView
 
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        if(mAuth.getCurrentUser() != null){
-
-        }
-
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        if(mAuth.getCurrentUser() != null){
+//
+//        }
+//
+//    }
 
 
 //    public  void Registation(final String fname, final String lname){
@@ -148,26 +146,33 @@ public class KmitlFragment extends Fragment {
     public void setComponent(View v){
         commit = (Button)getActivity().findViewById(R.id.cmt2_btn);
         fname = (EditText)v.findViewById(R.id.Fname);
-        lname =(EditText)v.findViewById(R.id.Lname);
+        lname =(EditText)v.findViewById(R.id.Fname);
         email =(EditText)v.findViewById(R.id.email);
         password =(EditText)v.findViewById(R.id.password);
         confirmpass=(EditText)v.findViewById(R.id.comfirm);
         radioGroup = (RadioGroup)v.findViewById(R.id.radioGroup);
-
     }
 
-    public boolean isValidNameFormat(final String fname,final  String lname) {
-
+    public boolean isValidNameFormat() {
         Pattern pattern;
         Matcher matcher;
-
-        final String Name_PATTERN = "^[ก-๙]*$";
+        final String Name_PATTERN = "^[ก-๙a-zA-Z]*$";
         pattern = Pattern.compile(Name_PATTERN);
-        matcher = pattern.matcher(fname);
-        matcher = pattern.matcher(lname);
+        matcher = pattern.matcher(fname.getText().toString().trim());
+        matcher = pattern.matcher(lname.getText().toString().trim());
         return matcher.matches();
-
     }
+
+//   public boolean isValidEmailFormat(){
+//    Pattern pattern;
+//    Matcher matcher;
+//    final String Name_PATTERN = "^[_A-Za-z0-9-\\\\+]+(\\\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\\\.[A-Za-z0-9]+)*(\\\\.[A-Za-z]{2,})$";
+//
+//    pattern = Pattern.compile(Name_PATTERN);
+//    matcher = pattern.matcher(email.getText().toString().trim());
+//    return matcher.matches();
+//    }
+
 
 
 
