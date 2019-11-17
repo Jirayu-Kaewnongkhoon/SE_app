@@ -21,6 +21,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
     public static void  setDetails(Context ctx, String userid, String username, String comment)
     {
+        TextView mpost=mView.findViewById(R.id.text_title);
         TextView mname=mView.findViewById(R.id.text_title);
         TextView mcom=mView.findViewById(R.id.text_description);
 

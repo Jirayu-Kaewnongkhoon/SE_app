@@ -41,7 +41,7 @@ public class NotificationsFragment extends Fragment {
 
         recycleView = (RecyclerView) root.findViewById(R.id.recycleView);
         FirebaseDatabase database=FirebaseDatabase.getInstance();
-        mRef=database.getInstance().getReference("post").child("111").child("comments");
+        mRef=database.getInstance().getReference("post").child("112").child("comments");
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recycleView.setLayoutManager(layoutManager);
@@ -50,10 +50,11 @@ public class NotificationsFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Map map =(Map)dataSnapshot.getValue();
-                String value =String.valueOf(map.get("username"));
-                String values =String.valueOf(map.get("comment"));
+                String valuepost =String.valueOf(map.get("messagepost"));
+                String valuecnm =String.valueOf(map.get("usernamecomment"));
+                String valuecom =String.valueOf(map.get("comment"));
 
-                adapterclass adapter = new adapterclass(value,values);
+                adapterclass adapter = new adapterclass(valuepost,valuecnm,valuecom);
                 recycleView.setAdapter(adapter);
             }
 

@@ -13,12 +13,14 @@ import com.example.seapp.R;
 import java.util.ArrayList;
 
 public class adapterclass extends RecyclerView.Adapter<adapterclass.Holder>      {
-    private String mDataSet;
-    private String mDataSet1;
+    private String postmess;
+    private String username;
+    private String comment;
 
-    public adapterclass(String dataSet,String dataSet1 ){
-        mDataSet = dataSet;
-        mDataSet1 =  dataSet1;
+    public adapterclass(String valuepost,String valuecnm,String valuecom ){
+        postmess = valuepost;
+        username = valuecnm;
+        comment  = valuecom;
 
     }
 
@@ -45,16 +47,19 @@ public class adapterclass extends RecyclerView.Adapter<adapterclass.Holder>     
     class Holder extends RecyclerView.ViewHolder{
         TextView textTitle;
         TextView textDescription;
+        TextView textnamepost;
 
         public Holder(@NonNull View itemView) {
             super(itemView);
             textTitle = itemView.findViewById(R.id.text_title);
+            textnamepost = itemView.findViewById(R.id.text_namepost);
             textDescription =itemView.findViewById(R.id.text_description);
 
         }
         public void setItem(int position){
-            textTitle.setText(mDataSet);
-            textDescription.setText(mDataSet1);
+            textTitle.setText(postmess);
+            textnamepost.setText(username);
+            textDescription.setText(comment);
         }
     }
 
