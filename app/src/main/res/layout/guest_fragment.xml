@@ -5,6 +5,44 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
 
+    <EditText
+        android:id="@+id/Fname2"
+        android:layout_width="115dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/borderbox"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:paddingLeft="10dp"
+        app:layout_constraintStart_toStartOf="@+id/displayName"
+        app:layout_constraintTop_toBottomOf="@+id/displayName" />
+
+    <EditText
+        android:id="@+id/Lname2"
+        android:layout_width="115dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:background="@drawable/borderbox"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:paddingLeft="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/Fname2"
+        app:layout_constraintStart_toEndOf="@+id/Fname2"
+        app:layout_constraintTop_toTopOf="@+id/Fname2" />
+
+    <TextView
+        android:id="@+id/expression_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="อนุญาติให้ใช้ได้เฉพาะตัวอักกษร ,ตัวเลข, และเครื่องหมายมหัพภาค(.) เท่านั้น"
+        android:textColor="@color/black"
+        android:textSize="8sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/password"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
+
     <TextView
         android:id="@+id/textView15"
         android:layout_width="wrap_content"
@@ -12,11 +50,11 @@
         android:layout_marginTop="16dp"
         android:text="ยืนยันรหัสผ่าน"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@+id/editText14"
-        app:layout_constraintTop_toBottomOf="@+id/editText14" />
+        app:layout_constraintStart_toStartOf="@+id/password"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <EditText
-        android:id="@+id/editText15"
+        android:id="@+id/confirmPass"
         android:layout_width="263dp"
         android:layout_height="25dp"
         android:layout_marginBottom="32dp"
@@ -36,11 +74,11 @@
         android:layout_marginTop="16dp"
         android:text="รหัสผ่าน"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@+id/editText13"
-        app:layout_constraintTop_toBottomOf="@+id/editText13" />
+        app:layout_constraintStart_toStartOf="@+id/email"
+        app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <EditText
-        android:id="@+id/editText14"
+        android:id="@+id/password"
         android:layout_width="263dp"
         android:layout_height="25dp"
         android:layout_marginTop="8dp"
@@ -52,7 +90,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
     <EditText
-        android:id="@+id/editText13"
+        android:id="@+id/email"
         android:layout_width="263dp"
         android:layout_height="25dp"
         android:layout_marginTop="8dp"
@@ -72,8 +110,8 @@
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editText"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintStart_toStartOf="@+id/Fname2"
+        app:layout_constraintTop_toBottomOf="@+id/Fname2" />
 
     <TextView
         android:id="@+id/textView12"
@@ -86,31 +124,6 @@
         app:layout_constraintStart_toEndOf="@+id/displayName"
         app:layout_constraintTop_toTopOf="@+id/displayName"
         app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/Fname"
-        android:layout_width="130dp"
-        android:layout_height="26dp"
-        android:layout_marginStart="16dp"
-        android:background="@drawable/borderbox"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:paddingLeft="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/editText"
-        app:layout_constraintStart_toEndOf="@+id/editText"
-        app:layout_constraintTop_toTopOf="@+id/editText" />
-
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="115dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/borderbox"
-        android:ems="10"
-        android:paddingLeft="10dp"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/displayName"
-        app:layout_constraintTop_toBottomOf="@+id/displayName" />
 
     <TextView
         android:id="@+id/displayName"

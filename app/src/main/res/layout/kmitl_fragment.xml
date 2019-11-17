@@ -4,6 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/expression_text2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:text="อนุญาติให้ใช้ได้เฉพาะตัวอักกษร ,ตัวเลข, และเครื่องหมายมหัพภาค(.) เท่านั้น"
+        android:textColor="@color/black"
+        android:textSize="8sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/password"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
+
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="253dp"
@@ -29,6 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="   บุคลากรคณะวิทยาการคอมพิวเตอร์" />
+
     </RadioGroup>
 
     <TextView
@@ -44,16 +59,33 @@
         />
 
     <EditText
-        android:id="@+id/Fname"
+        android:id="@+id/Fname1"
         android:layout_width="115dp"
         android:layout_height="25dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/borderbox"
         android:ems="10"
-        android:paddingLeft="10dp"
         android:inputType="textPersonName"
+        android:paddingLeft="10dp"
         app:layout_constraintStart_toStartOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <EditText
+        android:id="@+id/Lname1"
+        android:layout_width="115dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:background="@drawable/borderbox"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:paddingLeft="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/Fname1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.186"
+        app:layout_constraintStart_toEndOf="@+id/Fname1"
+        app:layout_constraintTop_toTopOf="@+id/Fname1"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView5"
@@ -68,32 +100,17 @@
         app:layout_constraintVertical_bias="0.0"
         android:textColor="@color/black"/>
 
-    <EditText
-        android:id="@+id/Lname"
-        android:layout_width="130dp"
-        android:layout_height="26dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:background="@drawable/borderbox"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:paddingLeft="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/Fname"
-        app:layout_constraintStart_toEndOf="@+id/Fname"
-        app:layout_constraintTop_toTopOf="@+id/Fname"
-        app:layout_constraintVertical_bias="1.0" />
-
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="อีเมลสถาบัน"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/Fname"
-        app:layout_constraintTop_toBottomOf="@+id/Fname"
-        android:textColor="@color/black"/>
+        app:layout_constraintStart_toStartOf="@+id/Fname1"
+        app:layout_constraintTop_toBottomOf="@+id/Fname1" />
 
     <EditText
         android:id="@+id/email"

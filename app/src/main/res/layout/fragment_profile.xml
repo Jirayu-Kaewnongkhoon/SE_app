@@ -34,11 +34,11 @@
             android:layout_marginLeft="76dp"
             android:layout_marginBottom="60dp"
             android:background="@mipmap/editpencil"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-            app:layout_constraintStart_toStartOf="@+id/imageView2" />
+            app:layout_constraintBottom_toBottomOf="@+id/userPic"
+            app:layout_constraintStart_toStartOf="@+id/userPic" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/userPic"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_marginTop="16dp"
@@ -59,10 +59,10 @@
             android:textColor="#000000"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/imageView2"
+            app:layout_constraintEnd_toEndOf="@+id/userPic"
             app:layout_constraintHorizontal_bias="0.533"
-            app:layout_constraintStart_toStartOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            app:layout_constraintStart_toStartOf="@+id/userPic"
+            app:layout_constraintTop_toBottomOf="@+id/userPic"
             app:layout_constraintVertical_bias="0.23000002" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -165,7 +165,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:background="@drawable/button_rounded"
-        android:text="Button"
+        android:text="ยืนยัน"
         android:textColor="@color/black"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -178,6 +178,7 @@
         android:id="@+id/nameLength"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/nameText"
         app:layout_constraintTop_toTopOf="@+id/nameText" />

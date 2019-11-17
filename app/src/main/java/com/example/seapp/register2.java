@@ -39,9 +39,7 @@ public class register2 extends AppCompatActivity {
     public FirebaseDatabase database;
     public DatabaseReference myRef;
     private FirebaseAuth mAuth;
-    private String pic;
-
-
+    private String pic = "Boy";
 
 
 
@@ -149,6 +147,7 @@ public class register2 extends AppCompatActivity {
         correct = (ImageView)findViewById(R.id.correctuser);
         warning =(TextView)findViewById(R.id.warning);
         commit = (Button)findViewById(R.id.cmt2_btn);
+
         mAuth = FirebaseAuth.getInstance();
 
         fname = getIntent().getExtras().getString("fname");

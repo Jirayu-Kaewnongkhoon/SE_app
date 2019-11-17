@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,7 @@ public class ProfileFragment extends Fragment  {
     private TextView statusLength;
     private EditText name,idText,type;
     private EditText status, userType;
+    private ImageView userPic;
     final int maxlength = 20;
     private  int lengthName;
     private  int remainNameLength;
@@ -77,8 +79,9 @@ public class ProfileFragment extends Fragment  {
         displayName=(TextView) root.findViewById(R.id.displayName);
         idText = (EditText)root.findViewById(R.id.idText);
         userType = (EditText)root.findViewById(R.id.userType);
+        userPic = (ImageView)root.findViewById(R.id.userPic);
 
-         database = FirebaseDatabase.getInstance();
+        database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -90,7 +93,7 @@ public class ProfileFragment extends Fragment  {
                 }
             }
         };
-
+        //Intital User Data
         if (user != null) {
             id = user.getUid();
             final DatabaseReference myRef = database.getReference("User").child(id);
@@ -100,11 +103,34 @@ public class ProfileFragment extends Fragment  {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String username = dataSnapshot.child("username").getValue().toString();
                     displayName.setText(username);
+                    name.setText(dataSnapshot.child("username").getValue().toString());
+                    status.setText(dataSnapshot.child("status").getValue().toString());
                     String usern;
                     usern = mAuth.getInstance().getCurrentUser().getUid();
                     idText.setText(usern);
                     userType.setText(dataSnapshot.child("inType").getValue().toString());
-                   status.setText(dataSnapshot.child("status").getValue().toString());
+                    status.setText(dataSnapshot.child("status").getValue().toString());
+
+                    // if user is KMITL
+                    if((userType.getText().toString().trim()).equals("บุคลภายนอก")){
+                        String pic = dataSnapshot.child("pic").getValue().toString();
+                        if(pic.equals("Boy")){
+                            userPic.setImageResource(R.drawable.boy);
+                        }
+                        else{
+                            userPic.setImageResource(R.drawable.girl);
+                        }
+                    }
+                    else {
+                        String pic = dataSnapshot.child("pic").getValue().toString();
+                        if(pic.equals("Boy")){
+                            userPic.setImageResource(R.drawable.boycs);
+                        }
+                        else{
+                            userPic.setImageResource(R.drawable.girlcs);
+                        }
+
+                    }
 
                 }
 
@@ -122,7 +148,6 @@ public class ProfileFragment extends Fragment  {
             actionAfterClickEditButton();
             }
         });
-
         realtimeCountText();
 
 
@@ -146,10 +171,6 @@ public class ProfileFragment extends Fragment  {
 
 
     }
-
-
-
-
 
 
     public void commitAction(){

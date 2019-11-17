@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,7 @@ import java.util.regex.Pattern;
 public class KmitlFragment extends Fragment {
     private Button commit;
     private EditText fname,lname,email,password,confirmpass;
+    private TextView warning;
     private RadioGroup radioGroup;
     public FirebaseDatabase database;
     public DatabaseReference myRef;
@@ -62,35 +64,51 @@ public class KmitlFragment extends Fragment {
         commit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                commit.setText("Hi");
+
+                boolean passCorrect =false;
+                boolean nameCorrrect = false;
+
+                Intent intent = new Intent(getActivity(), register2.class);
+                intent.putExtra("email",email.getText().toString().trim());
+                intent.putExtra("userType",userType);
+                intent.putExtra("inType",inType);
                 if(fname.getText().toString().trim().isEmpty() || lname.getText().toString().trim().isEmpty()
                     || email.getText().toString().trim().isEmpty() || password.getText().toString().trim().isEmpty()
                     || confirmpass.getText().toString().trim().isEmpty())
                     Toast.makeText(getActivity(), "กรุณากรอกข้อมูลให้ครบทุกช่อง", Toast.LENGTH_SHORT).show();
                 else {
                     if (isValidNameFormat()) {
-                        //Toast.makeText(getActivity(), "Correct", Toast.LENGTH_SHORT).show();
+                        intent.putExtra("fname",fname.getText().toString().trim());
+                        intent.putExtra("lname",lname.getText().toString().trim());
+                        nameCorrrect= true;
+
                     } else {
                         Toast.makeText(getActivity(), "ชื่อไม่ตรงตามรูปแบบ", Toast.LENGTH_SHORT).show();
                     }
-                }
-
-
 
                     if (!(password.getText().toString().trim()).equals(confirmpass.getText().toString().trim())) {
                         Toast.makeText(getActivity(), "พาสเวิร์ดไม่ตรงกัน", Toast.LENGTH_SHORT).show();
+                    }else {
+
+                        if (isValidPassword()) {
+                            password.setBackgroundResource(R.drawable.borderbox);
+                            warning.setVisibility(View.INVISIBLE);
+                            intent.putExtra("password",password.getText().toString().trim());
+                            passCorrect=true;
+                        } else {
+                            password.setBackgroundResource(R.drawable.red_border);
+                            warning.setVisibility(View.VISIBLE);
+
+
+                        }
                     }
 
+                }
+                if(passCorrect && nameCorrrect){
+                    startActivity(intent);
+                }
 
 
-                Intent intent = new Intent(getActivity(), register2.class);
-                intent.putExtra("fname",fname.getText().toString().trim());
-                intent.putExtra("lname",lname.getText().toString().trim());
-                intent.putExtra("email",email.getText().toString().trim());
-                intent.putExtra("password",password.getText().toString().trim());
-                intent.putExtra("userType",userType);
-                intent.putExtra("inType",inType);
-                startActivity(intent);
 
 
             }//OnClick
@@ -107,12 +125,13 @@ public class KmitlFragment extends Fragment {
 
     public void setComponent(View v){
         commit = (Button)getActivity().findViewById(R.id.cmt2_btn);
-        fname = (EditText)v.findViewById(R.id.Fname);
-        lname =(EditText)v.findViewById(R.id.Lname);
+        fname = (EditText)v.findViewById(R.id.Fname1);
+        lname =(EditText)v.findViewById(R.id.Lname1);
         email =(EditText)v.findViewById(R.id.email);
         password =(EditText)v.findViewById(R.id.password);
         confirmpass=(EditText)v.findViewById(R.id.comfirm);
         radioGroup = (RadioGroup)v.findViewById(R.id.radioGroup);
+        warning = (TextView)v.findViewById(R.id.expression_text2);
     }
 
     public boolean isValidNameFormat() {
