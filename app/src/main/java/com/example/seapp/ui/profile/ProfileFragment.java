@@ -33,7 +33,7 @@ import java.util.regex.Pattern;
 public class ProfileFragment extends Fragment  {
 
     private ProfileViewModel profileViewModel;
-    private Button commit;
+    private Button commit,edit;
     private TextView nameTxt,displayName;
     private TextView nameLength;
     private TextView statusLength;
@@ -53,9 +53,6 @@ public class ProfileFragment extends Fragment  {
     private String id;
 
 
-
-
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -68,22 +65,7 @@ public class ProfileFragment extends Fragment  {
                 ViewModelProviders.of(this).get(ProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        final Button edit = root.findViewById(R.id.edit_btn);
-        nameTxt =(TextView)root.findViewById(R.id.nameText);
-        name =(EditText)root.findViewById(R.id.nameEdit);
-        status =(EditText)root.findViewById(R.id.statusEdit);
-        nameLength=(TextView)root.findViewById(R.id.nameLength);
-        statusLength=(TextView)root.findViewById(R.id.statusLength);
-        commit = (Button)root.findViewById(R.id.commit_btn);
-        expression =(TextView)root.findViewById(R.id.Expression_text);
-        displayName=(TextView) root.findViewById(R.id.displayName);
-        idText = (EditText)root.findViewById(R.id.idText);
-        userType = (EditText)root.findViewById(R.id.userType);
-        userPic = (ImageView)root.findViewById(R.id.userPic);
-
-        database = FirebaseDatabase.getInstance();
-        mAuth = FirebaseAuth.getInstance();
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        setComponent(root);
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -111,7 +93,7 @@ public class ProfileFragment extends Fragment  {
                     userType.setText(dataSnapshot.child("inType").getValue().toString());
                     status.setText(dataSnapshot.child("status").getValue().toString());
 
-                    // if user is KMITL
+                    // if user isn't KMITL People
                     if((userType.getText().toString().trim()).equals("บุคลภายนอก")){
                         String pic = dataSnapshot.child("pic").getValue().toString();
                         if(pic.equals("Boy")){
@@ -121,6 +103,7 @@ public class ProfileFragment extends Fragment  {
                             userPic.setImageResource(R.drawable.girl);
                         }
                     }
+                    //KMITL GUYS
                     else {
                         String pic = dataSnapshot.child("pic").getValue().toString();
                         if(pic.equals("Boy")){
@@ -129,11 +112,8 @@ public class ProfileFragment extends Fragment  {
                         else{
                             userPic.setImageResource(R.drawable.girlcs);
                         }
-
                     }
-
-                }
-
+                }//OnDataChange
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -141,15 +121,15 @@ public class ProfileFragment extends Fragment  {
             });
         }
 
-
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
             actionAfterClickEditButton();
             }
         });
-        realtimeCountText();
 
+        //Counting Text Remain
+        realtimeCountText();
 
         // Click Commit Buttton
         commit.setOnClickListener(new View.OnClickListener() {
@@ -159,7 +139,6 @@ public class ProfileFragment extends Fragment  {
 
             }
         });
-
         return root;
     }
 
@@ -172,7 +151,7 @@ public class ProfileFragment extends Fragment  {
 
     }
 
-
+    //After Click commit
     public void commitAction(){
         if (isValidFormat(name.getText().toString().trim())) {
             name.setBackgroundResource(R.drawable.edittext_grey);
@@ -199,6 +178,25 @@ public class ProfileFragment extends Fragment  {
 
         }
 
+    }
+
+    public void setComponent(View root){
+        edit = root.findViewById(R.id.edit_btn);
+        nameTxt =(TextView)root.findViewById(R.id.nameText);
+        name =(EditText)root.findViewById(R.id.nameEdit);
+        status =(EditText)root.findViewById(R.id.statusEdit);
+        nameLength=(TextView)root.findViewById(R.id.nameLength);
+        statusLength=(TextView)root.findViewById(R.id.statusLength);
+        commit = (Button)root.findViewById(R.id.commit_btn);
+        expression =(TextView)root.findViewById(R.id.Expression_text);
+        displayName=(TextView) root.findViewById(R.id.displayName);
+        idText = (EditText)root.findViewById(R.id.idText);
+        userType = (EditText)root.findViewById(R.id.userType);
+        userPic = (ImageView)root.findViewById(R.id.userPic);
+
+        database = FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
     }
 
@@ -228,10 +226,6 @@ public class ProfileFragment extends Fragment  {
         String status_Remain = String.valueOf(remainStatusLength);
         statusLength.setText(status_Remain);
     }
-
-
-
-
 
 
 
