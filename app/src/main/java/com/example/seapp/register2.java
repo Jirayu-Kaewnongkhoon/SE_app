@@ -94,7 +94,7 @@ public class register2 extends AppCompatActivity {
         dlRegis.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class)
+                startActivity(new Intent(getApplicationContext(), MainActivity.class)
                         //to clear all activity in stack
                         .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                 finish();
@@ -119,6 +119,11 @@ public class register2 extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
                                         Toast.makeText(register2.this,"Successs",Toast.LENGTH_LONG).show();
+                                        //to clear all activity in stack
+                                        startActivity(new Intent(getApplicationContext(), MainActivity.class)
+                                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                                                finish();
+
                                     }
                                     else{
                                         //
@@ -126,7 +131,6 @@ public class register2 extends AppCompatActivity {
                                     }
                                 }
                             });
-
                         } else {
                             Toast.makeText(register2.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();

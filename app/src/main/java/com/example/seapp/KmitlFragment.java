@@ -78,6 +78,7 @@ public class KmitlFragment extends Fragment {
                     Toast.makeText(getActivity(), "กรุณากรอกข้อมูลให้ครบทุกช่อง", Toast.LENGTH_SHORT).show();
                 else {
                     if (isValidNameFormat()) {
+
                         intent.putExtra("fname",fname.getText().toString().trim());
                         intent.putExtra("lname",lname.getText().toString().trim());
                         nameCorrrect= true;
@@ -88,21 +89,25 @@ public class KmitlFragment extends Fragment {
 
                     if (!(password.getText().toString().trim()).equals(confirmpass.getText().toString().trim())) {
                         Toast.makeText(getActivity(), "พาสเวิร์ดไม่ตรงกัน", Toast.LENGTH_SHORT).show();
-                    }else {
 
-                        if (isValidPassword()) {
-                            password.setBackgroundResource(R.drawable.borderbox);
-                            warning.setVisibility(View.INVISIBLE);
-                            intent.putExtra("password",password.getText().toString().trim());
-                            passCorrect=true;
-                        } else {
-                            password.setBackgroundResource(R.drawable.red_border);
-                            warning.setVisibility(View.VISIBLE);
-
-
-                        }
                     }
 
+                    else {
+                        if(password.length() >=8){
+                            if (isValidPassword()) {
+                                password.setBackgroundResource(R.drawable.borderbox);
+                                warning.setVisibility(View.INVISIBLE);
+                                intent.putExtra("password",password.getText().toString().trim());
+                                passCorrect=true;
+                            } else {
+                                password.setBackgroundResource(R.drawable.red_border);
+                                warning.setVisibility(View.VISIBLE);
+                            }
+                        }
+                        else {
+                            Toast.makeText(getActivity(), "พาสเวิร์ดต้องมีความยาวอย่างนเอย 8 ตัวขึ้นไป", Toast.LENGTH_SHORT).show();
+                        }
+                    }
                 }
                 if(passCorrect && nameCorrrect){
                     startActivity(intent);
@@ -149,7 +154,7 @@ public class KmitlFragment extends Fragment {
         Pattern pattern;
         Matcher matcher;
 
-        final String Name_PATTERN = "^[ก-๙a-zA-Z0-9. ]*$";
+        final String Name_PATTERN = "^[a-zA-Z0-9. ]*$";
         pattern = Pattern.compile(Name_PATTERN);
         matcher = pattern.matcher(password.getText().toString().trim());
         return matcher.matches();
