@@ -50,14 +50,8 @@ public class register2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register2);
 
-        buttonboy=(Button)findViewById(R.id.buttonboycs);
-        buttongirl=(Button) findViewById(R.id.buttongirlcs);
-        username =(EditText)findViewById(R.id.username);
-        correct = (ImageView)findViewById(R.id.correctuser);
-        warning =(TextView)findViewById(R.id.warning);
-        commit = (Button)findViewById(R.id.cmt2_btn);
-        mAuth = FirebaseAuth.getInstance();
 
+        setComponent();
         checkText();
 
         dlRegis = new Dialog(this);
@@ -79,17 +73,12 @@ public class register2 extends AppCompatActivity {
             }
         });
 
-        fname = getIntent().getExtras().getString("fname");
-        lname = getIntent().getExtras().getString("lname");
-        email= getIntent().getExtras().getString("email");
-        password = getIntent().getExtras().getString("password");
-        userType = getIntent().getExtras().getString("userType");
-        inType = getIntent().getExtras().getString("inType");
+
 
         commit.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Registation();
+                registation();
 
             }
         });
@@ -117,24 +106,21 @@ public class register2 extends AppCompatActivity {
 
 
 
-    public  void Registation(){
+    public  void registation(){
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            //Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser users = mAuth.getCurrentUser();
-                            User user = new User(username.getText().toString().trim(),fname,lname,userType,inType,pic);
+                            String status ="";
 
-                            //myRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(users);
+                            FirebaseUser users = mAuth.getCurrentUser();
+                            User user = new User(username.getText().toString().trim(),fname,lname,userType,inType,pic,status);
                             FirebaseDatabase.getInstance().getReference("User").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
                                         Toast.makeText(register2.this,"Successs",Toast.LENGTH_LONG).show();
-
                                     }
                                     else{
                                         //
@@ -144,19 +130,36 @@ public class register2 extends AppCompatActivity {
                             });
 
                         } else {
-                            // If sign in fails, display a message to the user.
-                            //Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(register2.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
 
-                        // ...
-                    }
+                    }//OnComplete
 
 
                 });
 
     }//Regis Method
+
+    public void setComponent(){
+
+        buttonboy=(Button)findViewById(R.id.buttonboycs);
+        buttongirl=(Button) findViewById(R.id.buttongirlcs);
+        username =(EditText)findViewById(R.id.username);
+        correct = (ImageView)findViewById(R.id.correctuser);
+        warning =(TextView)findViewById(R.id.warning);
+        commit = (Button)findViewById(R.id.cmt2_btn);
+        mAuth = FirebaseAuth.getInstance();
+
+        fname = getIntent().getExtras().getString("fname");
+        lname = getIntent().getExtras().getString("lname");
+        email= getIntent().getExtras().getString("email");
+        password = getIntent().getExtras().getString("password");
+        userType = getIntent().getExtras().getString("userType");
+        inType = getIntent().getExtras().getString("inType");
+
+
+    }
 
     public void checkText(){
         username.addTextChangedListener(new TextWatcher() {

@@ -30,7 +30,7 @@ public class KmitlFragment extends Fragment {
     private String userId;
     private FirebaseAuth mAuth;
     private String userType ="Kmitl";
-    private String inType;
+    private String inType = "นักศึกษา";
 
 
     @Nullable
@@ -41,9 +41,6 @@ public class KmitlFragment extends Fragment {
 
 
 
-        //database = FirebaseDatabase.getInstance();
-        //mAuth = FirebaseAuth.getInstance();
-        //myRef = database.getReference("User");
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -78,16 +75,21 @@ public class KmitlFragment extends Fragment {
                     }
                 }
 
-                if(!(password.getText().toString().trim()).equals(confirmpass.getText().toString().trim())){
-                    Toast.makeText(getActivity(), "พาสเวิร์ดไม่ตรงกัน", Toast.LENGTH_SHORT).show();
-                }
+
+
+                    if (!(password.getText().toString().trim()).equals(confirmpass.getText().toString().trim())) {
+                        Toast.makeText(getActivity(), "พาสเวิร์ดไม่ตรงกัน", Toast.LENGTH_SHORT).show();
+                    }
+
+
+
                 Intent intent = new Intent(getActivity(), register2.class);
                 intent.putExtra("fname",fname.getText().toString().trim());
                 intent.putExtra("lname",lname.getText().toString().trim());
                 intent.putExtra("email",email.getText().toString().trim());
                 intent.putExtra("password",password.getText().toString().trim());
                 intent.putExtra("userType",userType);
-                intent.putExtra("userType",inType);
+                intent.putExtra("inType",inType);
                 startActivity(intent);
 
 
@@ -121,6 +123,18 @@ public class KmitlFragment extends Fragment {
         matcher = pattern.matcher(fname.getText().toString().trim());
         matcher = pattern.matcher(lname.getText().toString().trim());
         return matcher.matches();
+    }
+
+    public boolean isValidPassword() {
+
+        Pattern pattern;
+        Matcher matcher;
+
+        final String Name_PATTERN = "^[ก-๙a-zA-Z0-9. ]*$";
+        pattern = Pattern.compile(Name_PATTERN);
+        matcher = pattern.matcher(password.getText().toString().trim());
+        return matcher.matches();
+
     }
 
 

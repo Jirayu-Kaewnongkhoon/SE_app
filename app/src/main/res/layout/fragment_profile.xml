@@ -49,7 +49,7 @@
             app:srcCompat="@mipmap/boycs" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/displayName"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:background="@drawable/border"
@@ -156,8 +156,8 @@
         android:textAppearance="@style/LamoonBold"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/editText9"
-        app:layout_constraintTop_toBottomOf="@+id/editText9" />
+        app:layout_constraintStart_toStartOf="@+id/idText"
+        app:layout_constraintTop_toBottomOf="@+id/idText" />
 
     <Button
         android:id="@+id/commit_btn"
@@ -171,7 +171,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText3"
+        app:layout_constraintTop_toBottomOf="@+id/userType"
         app:layout_constraintVertical_bias="0.29000002" />
 
     <TextView
@@ -183,7 +183,7 @@
         app:layout_constraintTop_toTopOf="@+id/nameText" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/userType"
         android:layout_width="298dp"
         android:layout_height="33dp"
         android:background="@drawable/edittext_grey"
@@ -193,13 +193,13 @@
         android:paddingLeft="10dp"
         android:textAppearance="@style/LamoonRegular"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/editText9"
+        app:layout_constraintEnd_toEndOf="@+id/idText"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <EditText
-        android:id="@+id/editText9"
+        android:id="@+id/idText"
         android:layout_width="299dp"
         android:layout_height="34dp"
         android:background="@drawable/edittext_grey"

@@ -31,7 +31,7 @@ public class HomeFragment extends Fragment {
     private TextView txt;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-   // private FirebaseDatabase myRef;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -44,9 +44,6 @@ public class HomeFragment extends Fragment {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         txt = root.findViewById(R.id.text_home);
 
-//
-//        homeViewModel =
-//                ViewModelProviders.of(this).get(HomeViewModel.class);
 
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {

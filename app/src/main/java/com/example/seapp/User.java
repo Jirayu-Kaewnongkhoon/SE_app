@@ -7,14 +7,16 @@ public class User {
     public String userType; // ใน หรือ นอกสถาบัน
     public String inType; //นศ / บุคลากร
     public String pic;
+    public String status;
 
-    public User(String username,String fname,String lname,String userType,String inType,String pic){
+    public User(String username,String fname,String lname,String userType,String inType,String pic,String status){
         this.username = username;
         this.fname = fname;
         this.lname =  lname;
         this.userType = userType;
         this.inType = inType;
         this.pic = pic;
+        this.status= status;
 
     }
 

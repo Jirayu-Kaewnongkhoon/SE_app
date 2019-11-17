@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
-        mAuth.signOut();
+       //mAuth.signOut();
 
 
         email = findViewById(R.id.etEmail);
@@ -91,13 +91,11 @@ public class LoginActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
-//                                FirebaseUser user = mAuth.getCurrentUser();
+                                // FirebaseUser user = mAuth.getCurrentUser();
                                 Toast.makeText(LoginActivity.this, "เข้าสู่ระบบสำเร็จ", Toast.LENGTH_SHORT).show();
-
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class)
                                         .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                                 finish();
-
 
                             } else {
                                 // If sign in fails, display a message to the user.
