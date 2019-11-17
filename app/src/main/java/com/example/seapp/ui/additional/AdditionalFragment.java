@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,12 +21,26 @@ import com.example.seapp.R;
 import com.example.seapp.ui.announcement.AnnouncementActivity;
 import com.example.seapp.ui.home.HomeFragment;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 public class AdditionalFragment extends Fragment {
 
     private AdditionalViewModel additionalViewModel;
     private CardView card_History, card_Reply, card_Guide, card_Advertise, card_Contact, card_Logout;
+    private ImageView userPic;
+    private TextView displayName;
     private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseDatabase database;
+    private FirebaseUser user;
+    private String id;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -35,6 +51,66 @@ public class AdditionalFragment extends Fragment {
         additionalViewModel =
                 ViewModelProviders.of(this).get(AdditionalViewModel.class);
         final View root = inflater.inflate(R.layout.fragment_additional, container, false);
+        userPic = root.findViewById(R.id.userPic);
+        displayName = root.findViewById(R.id.displayName);
+        database = FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if(firebaseAuth.getCurrentUser() != null){
+
+                }
+            }
+        };
+
+
+        //Intital User Data
+        if (user != null) {
+            id = user.getUid();
+            final DatabaseReference myRef = database.getReference("User").child(id);
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String username = dataSnapshot.child("username").getValue().toString();
+                    String userType = dataSnapshot.child("inType").getValue().toString();
+                    displayName.setText(username);
+                    // if user isn't KMITL People
+                    if(userType.equals("บุคลภายนอก")){
+                        String pic = dataSnapshot.child("pic").getValue().toString();
+                        if(pic.equals("Boy")){
+                            userPic.setImageResource(R.drawable.boy);
+                        }
+                        else{
+                            userPic.setImageResource(R.drawable.girl);
+                        }
+                    }
+                    //KMITL GUYS
+                    else {
+                        String pic = dataSnapshot.child("pic").getValue().toString();
+                        if(pic.equals("Boy")){
+                            userPic.setImageResource(R.drawable.boycs);
+                        }
+                        else{
+                            userPic.setImageResource(R.drawable.girlcs);
+                        }
+                    }
+
+
+
+                }//OnDataChange
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+
+
 
         // On click cardView history post
         card_History = root.findViewById(R.id.cardHistory);
@@ -101,6 +177,15 @@ public class AdditionalFragment extends Fragment {
         });
 
         return root;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        mAuth.addAuthStateListener(mAuthListener);
+
+
     }
 
 }
