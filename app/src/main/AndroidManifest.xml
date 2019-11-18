@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".SearchFriend"></activity>
+        <activity android:name=".FriendActivity"></activity>
         <activity android:name=".ui.announcement.Detail3Activity" />
         <activity android:name=".ui.announcement.Detail2Activity" />
         <activity android:name=".ui.announcement.Detail1Activity" />
