@@ -7,7 +7,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.example.seapp.ui.additional.AdditionalFragment;
 import com.example.seapp.ui.profile.ProfileFragment;
@@ -15,6 +17,9 @@ import com.example.seapp.ui.home.HomeFragment;
 import com.example.seapp.ui.notifications.NotificationsFragment;
 import com.example.seapp.ui.post.PostFragment;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -98,15 +103,17 @@ public class MainActivity extends AppCompatActivity {
     public void setActionBarPost(int countText) {
         if (countText > 5) {
             actionbar_text.setVisibility(View.VISIBLE);
-            actionbar_text.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Switch bottom navigation bar and switch fragment to home
-                    BottomNavigationView navView = findViewById(R.id.nav_view);
-                    navView.setSelectedItemId(R.id.navigation_home);
+//            actionbar_text.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
 
-                }
-            });
+
+//                    // Switch bottom navigation bar and switch fragment to home
+//                    BottomNavigationView navView = findViewById(R.id.nav_view);
+//                    navView.setSelectedItemId(R.id.navigation_home);
+//
+//                }
+//            });
         } else {
             actionbar_text.setVisibility(View.INVISIBLE);
         }
@@ -116,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    Fragment selectedFragment = null;
+                    Fragment selectedFragment = new HomeFragment();
 
                     switch (item.getItemId()) {
                         case R.id.navigation_home:

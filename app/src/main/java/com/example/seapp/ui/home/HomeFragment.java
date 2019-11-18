@@ -13,9 +13,14 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.PagerAdapter;
 
 import com.example.seapp.LoginActivity;
 import com.example.seapp.MainActivity;
+import com.example.seapp.Post;
+import com.example.seapp.PostAdapter;
 import com.example.seapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,12 +30,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     private TextView txt;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    PostAdapter mPostAdapter;
+    RecyclerView postRecyclerView;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference mDBR;
+    List<Post> postList;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -42,7 +55,20 @@ public class HomeFragment extends Fragment {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        txt = root.findViewById(R.id.text_home);
+        //txt = root.findViewById(R.id.home_post_username);
+
+
+        postRecyclerView = root.findViewById(R.id.PostRow);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setStackFromEnd(true);
+        layoutManager.setReverseLayout(true);
+        postRecyclerView.setLayoutManager(layoutManager);
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        mDBR = firebaseDatabase.getReference().child("Posts");
+
+
+
 
 
 
@@ -70,7 +96,7 @@ public class HomeFragment extends Fragment {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String lname = dataSnapshot.child("lname").getValue().toString();
-                    txt.setText(lname);
+                    //txt.setText(lname);
                 }
 
                 @Override
@@ -96,6 +122,26 @@ public class HomeFragment extends Fragment {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         mAuth.addAuthStateListener(mAuthListener);
+
+        // Get List Posts from database
+        mDBR.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                postList = new ArrayList<>();
+                for(DataSnapshot postsnap : dataSnapshot.getChildren()){
+                    Post post = postsnap.getValue(Post.class);
+                    postList.add(post);
+                }
+
+                mPostAdapter = new PostAdapter(getActivity(),postList);
+                postRecyclerView.setAdapter(mPostAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
     }

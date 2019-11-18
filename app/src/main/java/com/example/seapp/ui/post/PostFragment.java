@@ -1,6 +1,7 @@
 package com.example.seapp.ui.post;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,22 +10,43 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.seapp.MainActivity;
+import com.example.seapp.Post;
 import com.example.seapp.R;
+import com.example.seapp.register2;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class PostFragment extends Fragment {
 
     private PostViewModel postViewModel;
     private LinearLayout layout_post, layout_click_post;
     private EditText edit_Post, edit_post_onClick;
-    private TextView count_text;
+    private TextView count_text,actionbar_text;
+
+    private TextView displayName;
+    private ImageView userPic;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseDatabase database;
+    private FirebaseUser user;
+    private String id,detail;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -36,6 +58,62 @@ public class PostFragment extends Fragment {
         postViewModel =
                 ViewModelProviders.of(this).get(PostViewModel.class);
         final View root = inflater.inflate(R.layout.fragment_post, container, false);
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if(firebaseAuth.getCurrentUser() != null){
+
+                }
+            }
+        };
+
+        displayName = (TextView) root.findViewById(R.id.profileName);
+        userPic = (ImageView) root.findViewById(R.id.imgProfile);
+
+        database = FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+        //Intital User Data
+        if (user != null) {
+            id = user.getUid();
+            final DatabaseReference myRef = database.getReference("User").child(id);
+            //myRef.child(id);
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String username = dataSnapshot.child("username").getValue().toString();
+                    displayName.setText(username);
+
+                    // if user isn't KMITL People
+                    String type = dataSnapshot.child("userType").getValue().toString();
+                    if (type.equals("บุคลภายนอก")) {
+                        String pic = dataSnapshot.child("pic").getValue().toString();
+                        if (pic.equals("Boy")) {
+                            userPic.setImageResource(R.drawable.boy);
+                        } else {
+                            userPic.setImageResource(R.drawable.girl);
+                        }
+                    }
+                    //KMITL GUYS
+                    else {
+                        String pic = dataSnapshot.child("pic").getValue().toString();
+                        if (pic.equals("Boy")) {
+                            userPic.setImageResource(R.drawable.boycs);
+                        } else {
+                            userPic.setImageResource(R.drawable.girlcs);
+                        }
+                    }
+
+                }//OnDataChange
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
 
         layout_post = root.findViewById(R.id.layoutPost);
         layout_click_post = root.findViewById(R.id.layoutClickPost);
@@ -59,6 +137,7 @@ public class PostFragment extends Fragment {
             }
         });
 
+        final Intent intent_data = new Intent(getActivity(), MainActivity.class);
         // On write post an calculated count text
         edit_post_onClick.addTextChangedListener(new TextWatcher() {
             @Override
@@ -80,8 +159,42 @@ public class PostFragment extends Fragment {
             public void afterTextChanged(Editable s) {
 
             }
+
+        });
+        TextView post_text = (TextView)getActivity().findViewById(R.id.actionbar_text);
+        post_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Create post object
+                FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
+                Post post = new Post(mUser.getUid(), edit_post_onClick.getText().toString());
+                addPost(post);
+            }
         });
 
         return root;
+    }
+
+    private void addPost(Post post) {
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference mRef = firebaseDatabase.getReference("Posts").push();
+
+        String key = mRef.getKey();
+        post.setPostKey(key);
+
+        mRef.setValue(post).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(getContext(), "สร้างกระทู้สำเร็จ", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        mAuth.addAuthStateListener(mAuthListener);
+
+
     }
 }
