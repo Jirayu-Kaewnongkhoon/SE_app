@@ -3,9 +3,13 @@ package com.example.seapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,8 +31,13 @@ public class SearchFriend extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseDatabase database;
     private FirebaseUser user;
-    private TextView displayName;
-    private ImageView userPic;
+    private TextView displayName,friendName;
+    private ImageView userPic,friendPic;
+    private EditText searchId;
+    private Button search;
+    private ConstraintLayout friend_layout;
+    private DatabaseReference friendRef;
+    private String friendID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +51,100 @@ public class SearchFriend extends AppCompatActivity {
         final TextView titleView = findViewById(R.id.action_bar_title);
         titleView.setText("ค้นหาเพื่อน");
         ImageView back =(ImageView) findViewById(R.id.actionbar_back);
-        displayName = (TextView) findViewById(R.id.displayName);
-        userPic  = (ImageView)findViewById(R.id.userPic);
+        displayName = (TextView) findViewById(R.id.myfriendName);
+        userPic  = (ImageView)findViewById(R.id.myfriendPic);
         database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
+        friend_layout = (ConstraintLayout)findViewById(R.id.friendLayout);
+        searchId = (EditText)findViewById(R.id.searchFriend_Id);
+        friendPic = (ImageView)findViewById(R.id.friendPic);
+        friendName = (TextView)findViewById(R.id.friendName);
+        search = (Button)findViewById(R.id.search);
+
+        //friendRef = database.getReference("User");
+        searchId.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                friendRef = database.getReference("User").child(searchId.getText().toString().trim());
+                //friendRef = database.getReference("User").child("xnOXekSffTXECPFNVP0VPU8lnfH2");
+
+                friendRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        if (!dataSnapshot.hasChild("username")) {
+                            //Toast.makeText(SearchFriend.this, "ID นี้ไม่มีอยู่ในระบบ", Toast.LENGTH_SHORT).show();
+                            friend_layout.setVisibility(View.INVISIBLE);
+                        } else {
+                            friendID = searchId.getText().toString().trim();
+                            friend_layout.setVisibility(View.VISIBLE);
+                            friendName.setText(dataSnapshot.child("username").getValue().toString());
+
+                           String userType =(dataSnapshot.child("inType").getValue().toString());
+
+                            if(userType.equals("บุคลภายนอก")){
+                                String pic = dataSnapshot.child("pic").getValue().toString();
+                                if(pic.equals("Boy")){
+                                    friendPic.setImageResource(R.drawable.boy);
+                                }
+                                else{
+                                    friendPic.setImageResource(R.drawable.girl);
+                                }
+                            }
+                            else{
+                                String pic = dataSnapshot.child("pic").getValue().toString();
+                                if(pic.equals("Boy")){
+                                    friendPic.setImageResource(R.drawable.boycs);
+                                }
+                                else{
+                                    friendPic.setImageResource(R.drawable.girlcs);
+                                }
+                            }
+                        }//Outer else
+
+                    }//OnDataChange
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SearchFriend.this, FriendActivity.class);
+                intent.putExtra("FriendID",friendID);
+                startActivity(intent);
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -100,8 +198,6 @@ public class SearchFriend extends AppCompatActivity {
                         }
                     }
 
-
-
                 }//OnDataChange
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -111,7 +207,10 @@ public class SearchFriend extends AppCompatActivity {
         }
 
 
-    }
+    }//OnCreate Method
+
+
+
 
     // Button back before activity
     @Override
@@ -133,4 +232,6 @@ public class SearchFriend extends AppCompatActivity {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
+
+
 }
