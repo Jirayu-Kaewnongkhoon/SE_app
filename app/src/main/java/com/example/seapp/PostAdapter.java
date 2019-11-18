@@ -10,12 +10,25 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> {
 
     Context mContext;
     List<Post> mData;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseDatabase database;
+    private FirebaseUser user;
+    private DatabaseReference mRef;
 
 
     public PostAdapter(Context mContext, List<Post> mData) {
@@ -32,8 +45,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.profile_name.setText(mData.get(position).getUserid());
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
+        holder.profile_name.setText(mData.get(position).getName());
         holder.post_detail.setText(mData.get(position).getDetail());
     }
 

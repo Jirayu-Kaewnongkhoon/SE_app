@@ -1,6 +1,7 @@
 package com.example.seapp;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ForgotPassword extends AppCompatActivity {
 
@@ -71,5 +74,9 @@ public class ForgotPassword extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 }

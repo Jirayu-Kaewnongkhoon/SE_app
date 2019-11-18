@@ -1,5 +1,6 @@
 package com.example.seapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -123,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    Fragment selectedFragment = new HomeFragment();
+                    Fragment selectedFragment = null;
 
                     switch (item.getItemId()) {
                         case R.id.navigation_home:
@@ -154,5 +155,4 @@ public class MainActivity extends AppCompatActivity {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
-
 }

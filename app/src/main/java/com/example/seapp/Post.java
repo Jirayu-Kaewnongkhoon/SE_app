@@ -1,21 +1,30 @@
 package com.example.seapp;
 
 public class Post {
-    public String postKey;
-    public String userid;
-    public String detail;
-    public String pic;
+    private String postKey;
+    private String userid;
+    private String detail;
+    private String pic;
+    private String name;
 
     public Post(){
 
     }
 
-    public Post(String userid, String detail) {
+    public Post(String userid, String detail, String name) {
         this.userid = userid;
         this.detail = detail;
+        this.name = name;
         //this.pic = pic;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getPostKey() {
         return postKey;

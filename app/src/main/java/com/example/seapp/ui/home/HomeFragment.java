@@ -52,14 +52,18 @@ public class HomeFragment extends Fragment {
         ((MainActivity) getActivity())
                 .setActionBarTitle(getString(R.string.title_home));
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         //txt = root.findViewById(R.id.home_post_username);
 
 
+        //set RecyclerView
         postRecyclerView = root.findViewById(R.id.PostRow);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        //new post will appear on top
         layoutManager.setStackFromEnd(true);
         layoutManager.setReverseLayout(true);
         postRecyclerView.setLayoutManager(layoutManager);

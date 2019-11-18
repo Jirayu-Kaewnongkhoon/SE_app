@@ -23,7 +23,10 @@ import com.example.seapp.MainActivity;
 import com.example.seapp.Post;
 import com.example.seapp.R;
 import com.example.seapp.register2;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -87,7 +90,7 @@ public class PostFragment extends Fragment {
                     displayName.setText(username);
 
                     // if user isn't KMITL People
-                    String type = dataSnapshot.child("userType").getValue().toString();
+                    String type = dataSnapshot.child("inType").getValue().toString();
                     if (type.equals("บุคลภายนอก")) {
                         String pic = dataSnapshot.child("pic").getValue().toString();
                         if (pic.equals("Boy")) {
@@ -137,7 +140,6 @@ public class PostFragment extends Fragment {
             }
         });
 
-        final Intent intent_data = new Intent(getActivity(), MainActivity.class);
         // On write post an calculated count text
         edit_post_onClick.addTextChangedListener(new TextWatcher() {
             @Override
@@ -166,26 +168,62 @@ public class PostFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 // Create post object
-                FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
-                Post post = new Post(mUser.getUid(), edit_post_onClick.getText().toString());
-                addPost(post);
+                /*final FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
+                final DatabaseReference mRef = database.getReference("User").child(mUser.getUid());
+                mRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Post post = new Post(mUser.getUid(), edit_post_onClick.getText().toString(),
+                                dataSnapshot.child("pic").getValue().toString());
+                        addPost(post);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });*/
+
+                // Create post object
+                final FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
+                DatabaseReference mRef = database.getReference("User").child(mUser.getUid());
+                mRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Post post = new Post(mUser.getUid(), edit_post_onClick.getText().toString(),
+                                dataSnapshot.child("username").getValue().toString());
+                        addPost(post);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+
+
             }
         });
 
         return root;
     }
-
+    //add post to firebase
     private void addPost(Post post) {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference mRef = firebaseDatabase.getReference("Posts").push();
+        DatabaseReference mRef_addPost = firebaseDatabase.getReference("Posts").push();
 
-        String key = mRef.getKey();
+        String key = mRef_addPost.getKey();
         post.setPostKey(key);
 
-        mRef.setValue(post).addOnSuccessListener(new OnSuccessListener<Void>() {
+        mRef_addPost.setValue(post).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Toast.makeText(getContext(), "สร้างกระทู้สำเร็จ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "สร้างกระทู้สำเร็จ", Toast.LENGTH_SHORT).show();
+
+                // Switch bottom navigation bar and switch fragment to home
+                BottomNavigationView navView = getActivity().findViewById(R.id.nav_view);
+                navView.setSelectedItemId(R.id.navigation_home);
             }
         });
     }
