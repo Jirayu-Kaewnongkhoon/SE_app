@@ -130,7 +130,7 @@ public class KmitlFragment extends Fragment {
 
     public void setComponent(View v){
         commit = (Button)getActivity().findViewById(R.id.cmt2_btn);
-        fname = (EditText)v.findViewById(R.id.Fname1);
+        fname = (EditText)v.findViewById(R.id.searchFriend_Id);
         lname =(EditText)v.findViewById(R.id.Lname1);
         email =(EditText)v.findViewById(R.id.email);
         password =(EditText)v.findViewById(R.id.password);

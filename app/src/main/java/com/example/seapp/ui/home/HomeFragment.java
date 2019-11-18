@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.seapp.LoginActivity;
 import com.example.seapp.MainActivity;
@@ -31,6 +33,7 @@ public class HomeFragment extends Fragment {
     private TextView txt;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private RecyclerView recyclerView;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -42,7 +45,8 @@ public class HomeFragment extends Fragment {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        txt = root.findViewById(R.id.text_home);
+
+
 
 
 
@@ -69,8 +73,7 @@ public class HomeFragment extends Fragment {
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    String lname = dataSnapshot.child("lname").getValue().toString();
-                    txt.setText(lname);
+
                 }
 
                 @Override
