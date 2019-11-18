@@ -18,11 +18,11 @@
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/userPic"
+        app:layout_constraintStart_toEndOf="@+id/myfriendPic"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/userPic"
+        android:id="@+id/myfriendPic"
         android:layout_width="66dp"
         android:layout_height="65dp"
         android:layout_marginTop="4dp"
@@ -43,7 +43,7 @@
         android:layout_marginRight="24dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/userPic"
+        app:layout_constraintStart_toEndOf="@+id/myfriendPic"
         app:layout_constraintTop_toBottomOf="@+id/username" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

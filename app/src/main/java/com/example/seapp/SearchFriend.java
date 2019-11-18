@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,7 +15,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,8 +23,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -36,8 +34,10 @@ public class SearchFriend extends AppCompatActivity {
     private TextView displayName,friendName;
     private ImageView userPic,friendPic;
     private EditText searchId;
+    private Button search;
     private ConstraintLayout friend_layout;
     private DatabaseReference friendRef;
+    private String friendID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +51,8 @@ public class SearchFriend extends AppCompatActivity {
         final TextView titleView = findViewById(R.id.action_bar_title);
         titleView.setText("ค้นหาเพื่อน");
         ImageView back =(ImageView) findViewById(R.id.actionbar_back);
-        displayName = (TextView) findViewById(R.id.displayName);
-        userPic  = (ImageView)findViewById(R.id.userPic);
+        displayName = (TextView) findViewById(R.id.myfriendName);
+        userPic  = (ImageView)findViewById(R.id.myfriendPic);
         database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -60,6 +60,7 @@ public class SearchFriend extends AppCompatActivity {
         searchId = (EditText)findViewById(R.id.searchFriend_Id);
         friendPic = (ImageView)findViewById(R.id.friendPic);
         friendName = (TextView)findViewById(R.id.friendName);
+        search = (Button)findViewById(R.id.search);
 
         //friendRef = database.getReference("User");
         searchId.addTextChangedListener(new TextWatcher() {
@@ -82,6 +83,7 @@ public class SearchFriend extends AppCompatActivity {
                             //Toast.makeText(SearchFriend.this, "ID นี้ไม่มีอยู่ในระบบ", Toast.LENGTH_SHORT).show();
                             friend_layout.setVisibility(View.INVISIBLE);
                         } else {
+                            friendID = searchId.getText().toString().trim();
                             friend_layout.setVisibility(View.VISIBLE);
                             friendName.setText(dataSnapshot.child("username").getValue().toString());
 
@@ -121,6 +123,17 @@ public class SearchFriend extends AppCompatActivity {
 
             }
         });
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SearchFriend.this, FriendActivity.class);
+                intent.putExtra("FriendID",friendID);
+                startActivity(intent);
+            }
+        });
+
+
 
 
 

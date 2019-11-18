@@ -7,19 +7,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.seapp.LoginActivity;
 import com.example.seapp.MainActivity;
 import com.example.seapp.R;
 import com.example.seapp.ui.announcement.AnnouncementActivity;
-import com.example.seapp.ui.home.HomeFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,8 +24,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
 
 public class AdditionalFragment extends Fragment {
 
@@ -51,8 +46,8 @@ public class AdditionalFragment extends Fragment {
         additionalViewModel =
                 ViewModelProviders.of(this).get(AdditionalViewModel.class);
         final View root = inflater.inflate(R.layout.fragment_additional, container, false);
-        userPic = root.findViewById(R.id.userPic);
-        displayName = root.findViewById(R.id.displayName);
+        userPic = root.findViewById(R.id.myfriendPic);
+        displayName = root.findViewById(R.id.myfriendName);
         database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();

@@ -189,10 +189,10 @@ public class ProfileFragment extends Fragment  {
         statusLength=(TextView)root.findViewById(R.id.statusLength);
         commit = (Button)root.findViewById(R.id.commit_btn);
         expression =(TextView)root.findViewById(R.id.Expression_text);
-        displayName=(TextView) root.findViewById(R.id.displayName);
+        displayName=(TextView) root.findViewById(R.id.myfriendName);
         idText = (EditText)root.findViewById(R.id.idText);
         userType = (EditText)root.findViewById(R.id.userType);
-        userPic = (ImageView)root.findViewById(R.id.userPic);
+        userPic = (ImageView)root.findViewById(R.id.myfriendPic);
 
         database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();

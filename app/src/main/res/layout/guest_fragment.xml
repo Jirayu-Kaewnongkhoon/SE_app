@@ -14,8 +14,8 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:paddingLeft="10dp"
-        app:layout_constraintStart_toStartOf="@+id/displayName"
-        app:layout_constraintTop_toBottomOf="@+id/displayName" />
+        app:layout_constraintStart_toStartOf="@+id/myfriendName"
+        app:layout_constraintTop_toBottomOf="@+id/myfriendName" />
 
     <EditText
         android:id="@+id/Lname2"
@@ -120,13 +120,13 @@
         android:layout_marginStart="128dp"
         android:text="นามสกุล"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/displayName"
-        app:layout_constraintStart_toEndOf="@+id/displayName"
-        app:layout_constraintTop_toTopOf="@+id/displayName"
+        app:layout_constraintBottom_toBottomOf="@+id/myfriendName"
+        app:layout_constraintStart_toEndOf="@+id/myfriendName"
+        app:layout_constraintTop_toTopOf="@+id/myfriendName"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/displayName"
+        android:id="@+id/myfriendName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ชื่อ"
