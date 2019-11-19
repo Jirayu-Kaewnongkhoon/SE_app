@@ -48,7 +48,7 @@ public class PostFragment extends Fragment {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseDatabase database;
     private FirebaseUser user;
-    private String id,detail;
+    private String id,detail,username;
 
 
 
@@ -89,7 +89,7 @@ public class PostFragment extends Fragment {
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    String username = dataSnapshot.child("username").getValue().toString();
+                    username = dataSnapshot.child("username").getValue().toString();
                     displayName.setText(username);
 
                     // if user isn't KMITL People
@@ -190,20 +190,23 @@ public class PostFragment extends Fragment {
                 // Create post object
                 final FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
                 DatabaseReference mRef = database.getReference("User").child(mUser.getUid());
-                mRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        id = mUser.getUid().toString();
-                        Post post = new Post(mUser.getUid(), edit_post_onClick.getText().toString(),
-                                dataSnapshot.child("username").getValue().toString());
-                        addPost(post);
-                    }
+//                mRef.addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                        id = mUser.getUid().toString();
+//                        //username = dataSnapshot.child("username").getValue().toString();
+//
+//
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                    }
+//                });
+                Post post = new Post(mUser.getUid(), edit_post_onClick.getText().toString(),username);
+                addPost(post);
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
 
 
 
@@ -226,6 +229,11 @@ public class PostFragment extends Fragment {
 
         post.setPostKey(key);
         userPostinUser.setValue(post);
+
+
+
+
+
         mRef_addPost.setValue(post).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
