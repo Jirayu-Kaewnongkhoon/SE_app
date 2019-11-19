@@ -3,6 +3,8 @@ package com.example.seapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -20,6 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -32,6 +36,11 @@ public class FriendActivity extends AppCompatActivity {
     private ImageView friendPic;
     private EditText status,id,type;
     private String friendID;
+    PostAdapter mPostAdapter;
+    RecyclerView postRecyclerView;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference mDBR,friendPost;
+    List<Post> postList;
 
 
 
@@ -58,6 +67,19 @@ public class FriendActivity extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         friendID = getIntent().getExtras().getString("FriendID");
         DatabaseReference myRef = database.getReference("User").child(friendID);
+        //set RecyclerView
+        postRecyclerView = findViewById(R.id.Post);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(FriendActivity.this);
+        //new post will appear on top
+        layoutManager.setStackFromEnd(true);
+        layoutManager.setReverseLayout(true);
+        postRecyclerView.setLayoutManager(layoutManager);
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        mDBR = firebaseDatabase.getReference().child("Posts");
+        friendPost = firebaseDatabase.getReference("User").child(friendID).child("Post");
+
+
 
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -124,6 +146,26 @@ public class FriendActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         mAuth.addAuthStateListener(mAuthListener);
+        // Get List Posts from database
+        friendPost.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                postList = new ArrayList<>();
+                //for(DataSnapshot postsnap : dataSnapshot.getChildren()){
+                for(DataSnapshot postsnap : dataSnapshot.getChildren()){
+                    Post post = postsnap.getValue(Post.class);
+                    postList.add(post);
+                }
+
+                mPostAdapter = new PostAdapter(FriendActivity.this,postList);
+                postRecyclerView.setAdapter(mPostAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     // Button back before activity

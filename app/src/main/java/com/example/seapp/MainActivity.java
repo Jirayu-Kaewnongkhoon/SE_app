@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 //                    // Switch bottom navigation bar and switch fragment to home
-//                    BottomNavigationView navView = findViewById(R.id.nav_view);
+ //                   BottomNavigationView navView = findViewById(R.id.nav_view);
 //                    navView.setSelectedItemId(R.id.navigation_home);
 //
 //                }

@@ -51,6 +51,7 @@ public class PostFragment extends Fragment {
     private String id,detail;
 
 
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -61,6 +62,7 @@ public class PostFragment extends Fragment {
         postViewModel =
                 ViewModelProviders.of(this).get(PostViewModel.class);
         final View root = inflater.inflate(R.layout.fragment_post, container, false);
+
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -73,6 +75,7 @@ public class PostFragment extends Fragment {
 
         displayName = (TextView) root.findViewById(R.id.profileName);
         userPic = (ImageView) root.findViewById(R.id.imgProfile);
+
 
         database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
@@ -190,6 +193,7 @@ public class PostFragment extends Fragment {
                 mRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        id = mUser.getUid().toString();
                         Post post = new Post(mUser.getUid(), edit_post_onClick.getText().toString(),
                                 dataSnapshot.child("username").getValue().toString());
                         addPost(post);
@@ -213,17 +217,25 @@ public class PostFragment extends Fragment {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference mRef_addPost = firebaseDatabase.getReference("Posts").push();
 
-        String key = mRef_addPost.getKey();
-        post.setPostKey(key);
 
+        String key = mRef_addPost.getKey();
+
+        //database.getReference("User").child(id).child("Post").child("PostKey").setValue(key);
+        DatabaseReference userPostinUser = firebaseDatabase.getReference("User").child(id).child("Post").child(key);
+
+
+        post.setPostKey(key);
+        userPostinUser.setValue(post);
         mRef_addPost.setValue(post).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(getActivity(), "สร้างกระทู้สำเร็จ", Toast.LENGTH_SHORT).show();
 
                 // Switch bottom navigation bar and switch fragment to home
+
                 BottomNavigationView navView = getActivity().findViewById(R.id.nav_view);
                 navView.setSelectedItemId(R.id.navigation_home);
+
             }
         });
     }
