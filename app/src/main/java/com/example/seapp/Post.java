@@ -4,18 +4,18 @@ public class Post {
     private String postKey;
     private String userid;
     private String detail;
-    private String pic;
+    private int pic;
     private String name;
 
     public Post(){
 
     }
 
-    public Post(String userid, String detail, String name) {
+    public Post(String userid, String detail, String name,int pic) {
         this.userid = userid;
         this.detail = detail;
         this.name = name;
-        //this.pic = pic;
+        this.pic = pic;
     }
 
     public String getName() {
@@ -50,13 +50,12 @@ public class Post {
         this.detail = detail;
     }
 
-    public String getPic() {
+    public int getPic() {
         return pic;
     }
 
-    public void setPic(String pic) {
+    public void setPic(int pic) {
         this.pic = pic;
     }
-
 
 }

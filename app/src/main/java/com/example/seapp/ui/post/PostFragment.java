@@ -49,6 +49,7 @@ public class PostFragment extends Fragment {
     private FirebaseDatabase database;
     private FirebaseUser user;
     private String id,detail,username;
+    private int picture;
 
 
 
@@ -98,8 +99,10 @@ public class PostFragment extends Fragment {
                         String pic = dataSnapshot.child("pic").getValue().toString();
                         if (pic.equals("Boy")) {
                             userPic.setImageResource(R.drawable.boy);
+                            picture = R.drawable.boy;
                         } else {
                             userPic.setImageResource(R.drawable.girl);
+                            picture = R.drawable.girl;
                         }
                     }
                     //KMITL GUYS
@@ -107,8 +110,11 @@ public class PostFragment extends Fragment {
                         String pic = dataSnapshot.child("pic").getValue().toString();
                         if (pic.equals("Boy")) {
                             userPic.setImageResource(R.drawable.boycs);
+                            picture = R.drawable.boycs;
+
                         } else {
                             userPic.setImageResource(R.drawable.girlcs);
+                            picture = R.drawable.girlcs;
                         }
                     }
 
@@ -190,21 +196,7 @@ public class PostFragment extends Fragment {
                 // Create post object
                 final FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
                 DatabaseReference mRef = database.getReference("User").child(mUser.getUid());
-//                mRef.addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                        id = mUser.getUid().toString();
-//                        //username = dataSnapshot.child("username").getValue().toString();
-//
-//
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                    }
-//                });
-                Post post = new Post(mUser.getUid(), edit_post_onClick.getText().toString(),username);
+                Post post = new Post(mUser.getUid(), edit_post_onClick.getText().toString(),username,picture);
                 addPost(post);
 
 
