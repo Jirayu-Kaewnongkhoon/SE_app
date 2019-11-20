@@ -2,6 +2,8 @@ package com.example.seapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -19,6 +21,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class PostDetials extends AppCompatActivity {
@@ -30,6 +35,12 @@ public class PostDetials extends AppCompatActivity {
     private int picture;
     private EditText comment_box;
     private ImageView send;
+    CommentAdapter mCommentAdapter;
+    RecyclerView commentRecyclerView;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference mDBR;
+    List<Comment> commentsList;
+    String postID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +78,7 @@ public class PostDetials extends AppCompatActivity {
 
 
     private void addComment(Comment comment){
-        String postID = getIntent().getExtras().getString("PostKey");
+         //postID = getIntent().getExtras().getString("PostKey");
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference mRef_addComment = firebaseDatabase.getReference("Posts").child(postID).child("Comments").push();
 
@@ -104,6 +115,11 @@ public class PostDetials extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         comment_box = (EditText)findViewById(R.id.commet_box);
         send = (ImageView)findViewById(R.id.send);
+        commentRecyclerView = findViewById(R.id.comment);
+        //Manage RecycleView set it visible
+        LinearLayoutManager layoutManager = new LinearLayoutManager(PostDetials.this);
+        commentRecyclerView.setLayoutManager(layoutManager);
+
         //Intital User Data
         if (user != null) {
             id = user.getUid();
@@ -147,6 +163,27 @@ public class PostDetials extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         mAuth.addAuthStateListener(mAuthListener);
+        // Get List Posts from database
+        postID = getIntent().getExtras().getString("PostKey");
+        mDBR = database.getReference().child("Posts").child(postID).child("Comments");
+        mDBR.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                commentsList = new ArrayList<>();
+                for(DataSnapshot postsnap : dataSnapshot.getChildren()){
+                    Comment comment = postsnap.getValue(Comment.class);
+                    commentsList.add(comment);
+                }
+
+                mCommentAdapter = new CommentAdapter(PostDetials.this,commentsList);
+                commentRecyclerView.setAdapter(mCommentAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
 

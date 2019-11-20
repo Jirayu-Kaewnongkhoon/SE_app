@@ -99,7 +99,7 @@ public class HomeFragment extends Fragment  {
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    String lname = dataSnapshot.child("lname").getValue().toString();
+                    //String lname = dataSnapshot.child("lname").getValue().toString();
                     //txt.setText(lname);
                 }
 
