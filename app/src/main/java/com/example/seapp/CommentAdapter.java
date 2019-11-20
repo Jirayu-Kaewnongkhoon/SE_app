@@ -1,7 +1,6 @@
 package com.example.seapp;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,18 +18,16 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> {
-
+public class CommentAdapter extends  RecyclerView.Adapter<CommentAdapter.MyViewHolder>{
     Context mContext;
-    List<Post> mData;
+    List<Comment> mData;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseDatabase database;
     private FirebaseUser user;
     private DatabaseReference mRef;
 
-
-    public PostAdapter(Context mContext, List<Post> mData) {
+    public CommentAdapter(Context mContext, List<Comment> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
@@ -38,26 +35,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View row = LayoutInflater.from(mContext).inflate(R.layout.post_row,parent,false);
+        View row = LayoutInflater.from(mContext).inflate(R.layout.comment_row,parent,false);
         return new MyViewHolder(row);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
-        final Post post = mData.get(position);
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        Comment comment = mData.get(position);
         holder.profile_name.setText(mData.get(position).getName());
-        holder.post_detail.setText(mData.get(position).getDetail());
+        holder.comment_detail.setText(mData.get(position).getDetail());
         holder.profile_img.setImageResource(mData.get(position).getPic());
-        holder.layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-              //Toast.makeText(mContext,"You Click"+post.getName(),Toast.LENGTH_LONG).show();
-               Intent intent = new Intent(mContext, PostDetials.class);
-               intent.putExtra("PostKey",mData.get(position).getPostKey().toString());
-                mContext.startActivity(intent);
-            }
-        });
-
     }
 
     @Override
@@ -65,23 +52,22 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         return mData.size();
     }
 
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public ConstraintLayout layout;
-        TextView profile_name,post_detail;
+        TextView profile_name,comment_detail;
         ImageView profile_img;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            post_detail = (TextView) itemView.findViewById(R.id.home_post_detail);
-            profile_name = (TextView) itemView.findViewById(R.id.home_post_username);
-            profile_img = (ImageView) itemView.findViewById(R.id.home_post_image);
-            layout = (ConstraintLayout)itemView.findViewById(R.id.postLayout);
+            comment_detail = (TextView) itemView.findViewById(R.id.comment_detail);
+            profile_name = (TextView) itemView.findViewById(R.id.comment_username);
+            profile_img = (ImageView) itemView.findViewById(R.id.comment_image);
+            layout = (ConstraintLayout)itemView.findViewById(R.id.commentLayout);
 
         }
 
 
     }
-
-
 }
