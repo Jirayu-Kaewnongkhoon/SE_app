@@ -1,22 +1,22 @@
 package com.example.seapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -45,9 +45,19 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
+        final Post post = mData.get(position);
         holder.profile_name.setText(mData.get(position).getName());
         holder.post_detail.setText(mData.get(position).getDetail());
         holder.profile_img.setImageResource(mData.get(position).getPic());
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+              //Toast.makeText(mContext,"You Click"+post.getName(),Toast.LENGTH_LONG).show();
+               Intent intent = new Intent(mContext, PostDetials.class);
+                mContext.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -56,7 +66,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-
+        public ConstraintLayout layout;
         TextView profile_name,post_detail;
         ImageView profile_img;
 
@@ -66,7 +76,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             post_detail = (TextView) itemView.findViewById(R.id.home_post_detail);
             profile_name = (TextView) itemView.findViewById(R.id.home_post_username);
             profile_img = (ImageView) itemView.findViewById(R.id.home_post_image);
+            layout = (ConstraintLayout)itemView.findViewById(R.id.layout);
 
         }
+
+
     }
+
+
 }
