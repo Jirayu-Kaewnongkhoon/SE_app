@@ -27,6 +27,7 @@ public class CommentAdapter extends  RecyclerView.Adapter<CommentAdapter.MyViewH
     private FirebaseUser user;
     private DatabaseReference mRef;
 
+
     public CommentAdapter(Context mContext, List<Comment> mData) {
         this.mContext = mContext;
         this.mData = mData;

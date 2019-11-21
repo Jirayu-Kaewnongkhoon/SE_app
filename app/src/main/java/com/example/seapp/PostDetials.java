@@ -1,6 +1,7 @@
 package com.example.seapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -34,7 +36,8 @@ public class PostDetials extends AppCompatActivity {
     private String id,detail,username;
     private int picture;
     private EditText comment_box;
-    private ImageView send;
+    private ImageView send,actionbar_report,actionbar_back;
+    private TextView actionbar_title;
     CommentAdapter mCommentAdapter;
     RecyclerView commentRecyclerView;
     FirebaseDatabase firebaseDatabase;
@@ -48,6 +51,11 @@ public class PostDetials extends AppCompatActivity {
         setContentView(R.layout.activity_post_detials);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar);
+        actionbarManager();
+
+
 
 
 
@@ -108,14 +116,35 @@ public class PostDetials extends AppCompatActivity {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
     }
 
+    public void actionbarManager(){
+        //setActionbar
+        actionbar_report = findViewById(R.id.actionbar_search);
+        actionbar_report.setImageResource(R.drawable.additional_orange);
+        actionbar_back =  findViewById(R.id.actionbar_logo);
+        actionbar_title = (TextView) findViewById(R.id.action_bar_title);
+        actionbar_title.setText("CS TALK");
+        actionbar_back.setImageResource(R.drawable.backarrow_grey);
+
+        actionbar_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+    }
+
     public void intitalData(){
 
+        //setComponent
         database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
         comment_box = (EditText)findViewById(R.id.commet_box);
         send = (ImageView)findViewById(R.id.send);
         commentRecyclerView = findViewById(R.id.comment);
+
+
         //Manage RecycleView set it visible
         LinearLayoutManager layoutManager = new LinearLayoutManager(PostDetials.this);
         commentRecyclerView.setLayoutManager(layoutManager);
@@ -159,6 +188,7 @@ public class PostDetials extends AppCompatActivity {
             });
         }
     }
+
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
