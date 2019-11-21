@@ -54,6 +54,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
               //Toast.makeText(mContext,"You Click"+post.getName(),Toast.LENGTH_LONG).show();
                Intent intent = new Intent(mContext, PostDetials.class);
                intent.putExtra("PostKey",mData.get(position).getPostKey().toString());
+               intent.putExtra("Details",mData.get(position).getDetail().toString());
+               intent.putExtra("Picture",mData.get(position).getPic());
+               intent.putExtra("Name",mData.get(position).getName().toString());
                 mContext.startActivity(intent);
             }
         });
@@ -73,9 +76,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            post_detail = (TextView) itemView.findViewById(R.id.home_post_detail);
-            profile_name = (TextView) itemView.findViewById(R.id.home_post_username);
-            profile_img = (ImageView) itemView.findViewById(R.id.home_post_image);
+            post_detail = (TextView) itemView.findViewById(R.id.postOwner_detail);
+            profile_name = (TextView) itemView.findViewById(R.id.postOwner_username);
+            profile_img = (ImageView) itemView.findViewById(R.id.postOwner_image);
             layout = (ConstraintLayout)itemView.findViewById(R.id.postLayout);
 
         }

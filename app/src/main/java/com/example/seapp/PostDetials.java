@@ -36,9 +36,11 @@ public class PostDetials extends AppCompatActivity {
     private String id,detail,username;
     private int picture;
     private EditText comment_box;
-    private ImageView send,actionbar_report,actionbar_back;
-    private TextView actionbar_title;
+    private ImageView send,actionbar_report,actionbar_back,postOwner_Pic;
+    private TextView actionbar_title,postOwner_Name,postOwner_Detail;
+    private TextView commentCount;
     CommentAdapter mCommentAdapter;
+    int size;
     RecyclerView commentRecyclerView;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference mDBR;
@@ -124,6 +126,9 @@ public class PostDetials extends AppCompatActivity {
         actionbar_title = (TextView) findViewById(R.id.action_bar_title);
         actionbar_title.setText("CS TALK");
         actionbar_back.setImageResource(R.drawable.backarrow_grey);
+        postOwner_Pic = (ImageView)findViewById(R.id.postOwner_image);
+        postOwner_Name = (TextView)findViewById(R.id.postOwner_username);
+        postOwner_Detail = (TextView)findViewById(R.id.postOwner_detail);
 
         actionbar_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,6 +136,7 @@ public class PostDetials extends AppCompatActivity {
                 finish();
             }
         });
+
 
     }
 
@@ -143,6 +149,16 @@ public class PostDetials extends AppCompatActivity {
         comment_box = (EditText)findViewById(R.id.commet_box);
         send = (ImageView)findViewById(R.id.send);
         commentRecyclerView = findViewById(R.id.comment);
+        String detail = getIntent().getExtras().getString("Details");
+        int pic = getIntent().getExtras().getInt("Picture");
+        String ownerName = getIntent().getExtras().getString("Name");
+        postOwner_Detail.setText(detail);
+        postOwner_Name.setText(ownerName);
+        postOwner_Pic.setImageResource(pic);
+        commentCount = (TextView)findViewById(R.id.commentCount);
+
+
+
 
 
         //Manage RecycleView set it visible
@@ -158,6 +174,7 @@ public class PostDetials extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     username = dataSnapshot.child("username").getValue().toString();
+
 
                     // if user isn't KMITL People
                     String type = dataSnapshot.child("inType").getValue().toString();
@@ -178,6 +195,7 @@ public class PostDetials extends AppCompatActivity {
                             picture = R.drawable.girlcs;
                         }
                     }
+
 
                 }//OnDataChange
 
@@ -200,11 +218,13 @@ public class PostDetials extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 commentsList = new ArrayList<>();
+
                 for(DataSnapshot postsnap : dataSnapshot.getChildren()){
                     Comment comment = postsnap.getValue(Comment.class);
                     commentsList.add(comment);
                 }
-
+                size = commentsList.size();
+                commentCount.setText(String.valueOf(size));
                 mCommentAdapter = new CommentAdapter(PostDetials.this,commentsList);
                 commentRecyclerView.setAdapter(mCommentAdapter);
             }
