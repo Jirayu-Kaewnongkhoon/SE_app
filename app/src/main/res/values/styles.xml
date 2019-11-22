@@ -27,4 +27,9 @@
         <item name="android:windowCloseOnTouchOutside">true</item>
     </style>
 
+    <!-- searchbar -->
+    <style name="AppTheme.Searchbar" >
+        <item name="colorPrimary">#ffffff</item>
+    </style>
+
 </resources>

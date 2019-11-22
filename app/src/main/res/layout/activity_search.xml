@@ -7,7 +7,7 @@
     tools:context=".SearchActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/IconInSearch"
         android:layout_width="150dp"
         android:layout_height="140dp"
         android:layout_marginTop="24dp"
@@ -26,9 +26,16 @@
         android:textSize="24sp"
         android:textAppearance="@style/LamoonRegular"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/IconInSearch"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/IconInSearch"
+        app:layout_constraintTop_toBottomOf="@+id/IconInSearch"
         app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/SearchRow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

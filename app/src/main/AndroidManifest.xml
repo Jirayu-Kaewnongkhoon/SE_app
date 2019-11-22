@@ -18,7 +18,10 @@
         <activity android:name=".ui.announcement.Detail1Activity" />
         <activity android:name=".ui.announcement.AnnouncementActivity" />
         <activity android:name=".ui.additional.ContactActivity" />
-        <activity android:name=".SearchActivity" />
+        <activity
+            android:name=".SearchActivity"
+            android:theme="@style/AppTheme.Searchbar">
+        </activity>
         <activity android:name=".ui.additional.GuideActivity" />
         <activity android:name=".Report" />
         <activity
