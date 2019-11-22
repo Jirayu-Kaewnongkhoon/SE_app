@@ -203,9 +203,15 @@ public class PostDetials extends AppCompatActivity {
                     }
 
                     else{reDelete.setText("Report Post");
-
-                    Intent intent = new Intent(PostDetials.this);
-
+                    reDelete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(PostDetials.this,Report.class);
+                            startActivity(intent);
+                            reDelete.setVisibility(View.INVISIBLE);
+                            cancel.setVisibility(View.INVISIBLE);
+                        }
+                    });
                     }
                     // if user isn't KMITL People
                     String type = dataSnapshot.child("inType").getValue().toString();

@@ -19,6 +19,7 @@
         <activity android:name=".ui.additional.ContactActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".ui.additional.GuideActivity" />
+        <activity android:name=".Report"/>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"></activity>
