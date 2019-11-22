@@ -9,9 +9,14 @@
 
     <Button
         android:id="@+id/redelete_Btn"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="108dp"
+        android:layout_marginLeft="108dp"
         android:layout_marginTop="444dp"
+        android:layout_marginEnd="108dp"
+        android:layout_marginRight="108dp"
+        android:background="@drawable/button_orange"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -20,13 +25,15 @@
 
     <Button
         android:id="@+id/cancel_Btn"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@android:string/cancel"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/whitebutton"
+        android:text="ยกเลิก"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/redelete_Btn"
+        app:layout_constraintStart_toStartOf="@+id/redelete_Btn"
         app:layout_constraintTop_toBottomOf="@+id/redelete_Btn"
         app:layout_constraintVertical_bias="0.0" />
 

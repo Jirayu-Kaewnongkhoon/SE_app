@@ -189,7 +189,7 @@ public class PostDetials extends AppCompatActivity {
                 public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
                     username = dataSnapshot.child("username").getValue().toString();
 
-                    if(username.equals(ownerName)){reDelete.setText("Delete Post");
+                    if(username.equals(ownerName)){reDelete.setText("ลบกระทู้");
                     reDelete.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -202,7 +202,7 @@ public class PostDetials extends AppCompatActivity {
                     });
                     }
 
-                    else{reDelete.setText("Report Post");
+                    else{reDelete.setText("รายงานกระทู้");
                     reDelete.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
