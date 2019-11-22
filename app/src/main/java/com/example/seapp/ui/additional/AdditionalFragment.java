@@ -117,6 +117,8 @@ public class AdditionalFragment extends Fragment {
         card_History.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(root.getContext(), History.class);
+                startActivity(intent);
 
             }
         });

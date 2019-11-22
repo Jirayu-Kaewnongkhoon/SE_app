@@ -23,11 +23,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
     Context mContext;
     List<Post> mData;
+    List<Comment>mentData;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseDatabase database;
     private FirebaseUser user;
     private DatabaseReference mRef;
+
 
 
     public PostAdapter(Context mContext, List<Post> mData) {
@@ -61,6 +63,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             }
         });
 
+
     }
 
     @Override
@@ -72,6 +75,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         public ConstraintLayout layout;
         TextView profile_name,post_detail;
         ImageView profile_img;
+        private TextView commentCount;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -80,11 +84,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             profile_name = (TextView) itemView.findViewById(R.id.postOwner_username);
             profile_img = (ImageView) itemView.findViewById(R.id.postOwner_image);
             layout = (ConstraintLayout)itemView.findViewById(R.id.postLayout);
+            commentCount = (TextView)itemView.findViewById(R.id.commentCount);
+
 
         }
 
-
     }
+
+
 
 
 }

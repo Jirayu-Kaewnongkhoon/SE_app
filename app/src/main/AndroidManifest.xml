@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/logocrop"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PostDetials"></activity>
+        <activity android:name=".ui.additional.History"></activity>
+        <activity android:name=".PostDetials" />
         <activity android:name=".SearchFriend" />
         <activity android:name=".FriendActivity" />
         <activity android:name=".ui.announcement.Detail3Activity" />
@@ -19,16 +20,16 @@
         <activity android:name=".ui.additional.ContactActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".ui.additional.GuideActivity" />
-        <activity android:name=".Report"/>
+        <activity android:name=".Report" />
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
         <activity
             android:name=".RegisterSuccess"
             android:theme="@style/AppTheme.Dialog" />
         <activity
             android:name=".Register"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".register2"
             android:theme="@style/AppTheme.NoActionBar" />
