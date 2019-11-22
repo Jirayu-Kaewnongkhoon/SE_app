@@ -44,4 +44,31 @@ public class User {
         this.pic = pic;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public String getFname() {
+        return fname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public String getInType() {
+        return inType;
+    }
+
+    public String getPic() {
+        return pic;
+    }
+
+    public String getStatus() {
+        return status;
+    }
 }

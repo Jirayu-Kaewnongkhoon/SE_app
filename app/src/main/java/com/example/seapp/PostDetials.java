@@ -3,12 +3,15 @@ package com.example.seapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -39,13 +42,15 @@ public class PostDetials extends AppCompatActivity {
     private ImageView send,actionbar_report,actionbar_back,postOwner_Pic;
     private TextView actionbar_title,postOwner_Name,postOwner_Detail;
     private TextView commentCount;
+    //private ConstraintLayout reportLayout;
+    private Button reDelete,cancel;
     CommentAdapter mCommentAdapter;
     int size;
     RecyclerView commentRecyclerView;
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference mDBR;
+    DatabaseReference mDBR,userRef;
     List<Comment> commentsList;
-    String postID;
+    String postID,currentUserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +83,7 @@ public class PostDetials extends AppCompatActivity {
                 DatabaseReference mRef = database.getReference("User").child(mUser.getUid());
                 Comment comment = new Comment(mUser.getUid(), comment_box.getText().toString().trim(),username,picture);
                 addComment(comment);
+                comment_box.setText("");
 
             }
         });
@@ -137,6 +143,17 @@ public class PostDetials extends AppCompatActivity {
             }
         });
 
+        actionbar_report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //reportLayout.setVisibility(View.VISIBLE);
+                reDelete.setVisibility(View.VISIBLE);
+                cancel.setVisibility(View.VISIBLE);
+            }
+        });
+
+
+
 
     }
 
@@ -151,19 +168,16 @@ public class PostDetials extends AppCompatActivity {
         commentRecyclerView = findViewById(R.id.comment);
         String detail = getIntent().getExtras().getString("Details");
         int pic = getIntent().getExtras().getInt("Picture");
-        String ownerName = getIntent().getExtras().getString("Name");
+        final String ownerName = getIntent().getExtras().getString("Name");
         postOwner_Detail.setText(detail);
         postOwner_Name.setText(ownerName);
         postOwner_Pic.setImageResource(pic);
         commentCount = (TextView)findViewById(R.id.commentCount);
 
-
-
-
-
         //Manage RecycleView set it visible
         LinearLayoutManager layoutManager = new LinearLayoutManager(PostDetials.this);
         commentRecyclerView.setLayoutManager(layoutManager);
+        reDelete = (Button)findViewById(R.id.redelete_Btn);
 
         //Intital User Data
         if (user != null) {
@@ -172,10 +186,27 @@ public class PostDetials extends AppCompatActivity {
             //myRef.child(id);
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
                     username = dataSnapshot.child("username").getValue().toString();
 
+                    if(username.equals(ownerName)){reDelete.setText("Delete Post");
+                    reDelete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            DatabaseReference post = database.getReference().child("Posts").child(postID);
+                            DatabaseReference postinUser = database.getReference().child("User").child(id).child("Post").child(postID);
+                            postinUser.removeValue();
+                            post.removeValue();
+                            finish();
+                        }
+                    });
+                    }
 
+                    else{reDelete.setText("Report Post");
+
+                    Intent intent = new Intent(PostDetials.this);
+
+                    }
                     // if user isn't KMITL People
                     String type = dataSnapshot.child("inType").getValue().toString();
                     if (type.equals("บุคลภายนอก")) {
@@ -205,6 +236,15 @@ public class PostDetials extends AppCompatActivity {
                 }
             });
         }
+
+        cancel = (Button)findViewById(R.id.cancel_Btn);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                reDelete.setVisibility(View.INVISIBLE);
+                cancel.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 
     public void onStart() {
