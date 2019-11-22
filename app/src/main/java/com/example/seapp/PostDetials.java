@@ -253,6 +253,9 @@ public class PostDetials extends AppCompatActivity {
         });
     }
 
+
+
+    ///////////////////////
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
