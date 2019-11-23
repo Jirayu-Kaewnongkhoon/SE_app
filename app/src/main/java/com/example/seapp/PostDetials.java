@@ -101,11 +101,17 @@ public class PostDetials extends AppCompatActivity {
         String key = mRef_addComment.getKey();
         DatabaseReference userPostinUser = firebaseDatabase.getReference("User").child(id).child("Post").child(postID).child("Comments").child(key);
         DatabaseReference owner = firebaseDatabase.getReference().child("Posts").child(postID);
-        DatabaseReference postRef = firebaseDatabase.getReference("User").child(ownerID).child("Post").child("Comments").child(key);
+
+        if(!user.getUid().equals(ownerID)) {
+            DatabaseReference postRef = firebaseDatabase.getReference("User").child(ownerID).child("Post").child("Comments").child(key);
+            postRef.setValue(commentNotification);
+            commentNotification.setPostKey(key);
+        }
+
         comment.setPostKey(key);
         userPostinUser.setValue(comment);
-        commentNotification.setPostKey(key);
-        postRef.setValue(commentNotification);
+
+
         mRef_addComment.setValue(comment).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
