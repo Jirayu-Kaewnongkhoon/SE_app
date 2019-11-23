@@ -1,6 +1,7 @@
 package com.example.seapp;
 
-public class Comment {
+public class CommentNotification {
+
     private String postKey;
     private String userid;
     private String detail;
@@ -8,13 +9,15 @@ public class Comment {
     private String name;
     private String postTopic;
 
-    public Comment(){}
+    public CommentNotification(){
 
-    public Comment(String userid, String detail,String name, int pic ,String postTopic) {
+    }
+
+    public CommentNotification(String userid, String detail, String name, int pic, String postTopic ) {
         this.userid = userid;
         this.detail = detail;
-        this.pic = pic;
         this.name = name;
+        this.pic = pic;
         this.postTopic = postTopic;
     }
 
@@ -52,6 +55,14 @@ public class Comment {
 
     public int getPic() {
         return pic;
+    }
+
+    public String getPostTopic() {
+        return postTopic;
+    }
+
+    public void setPostTopic(String postTopic) {
+        this.postTopic = postTopic;
     }
 
     public void setPic(int pic) {

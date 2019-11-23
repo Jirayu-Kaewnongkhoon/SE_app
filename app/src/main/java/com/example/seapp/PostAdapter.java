@@ -14,8 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -47,18 +50,20 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final Post post = mData.get(position);
+
         holder.profile_name.setText(mData.get(position).getName());
         holder.post_detail.setText(mData.get(position).getDetail());
         holder.profile_img.setImageResource(mData.get(position).getPic());
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //Toast.makeText(mContext,"You Click"+post.getName(),Toast.LENGTH_LONG).show();
-               Intent intent = new Intent(mContext, PostDetials.class);
-               intent.putExtra("PostKey",mData.get(position).getPostKey().toString());
-               intent.putExtra("Details",mData.get(position).getDetail().toString());
-               intent.putExtra("Picture",mData.get(position).getPic());
-               intent.putExtra("Name",mData.get(position).getName().toString());
+                //Toast.makeText(mContext,"You Click"+post.getName(),Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(mContext, PostDetials.class);
+                intent.putExtra("PostKey",mData.get(position).getPostKey().toString());
+                intent.putExtra("Details",mData.get(position).getDetail().toString());
+                intent.putExtra("ownerID",mData.get(position).getUserid().toString());
+                intent.putExtra("Picture",mData.get(position).getPic());
+                intent.putExtra("Name",mData.get(position).getName().toString());
                 mContext.startActivity(intent);
             }
         });

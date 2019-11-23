@@ -51,6 +51,7 @@ public class PostDetials extends AppCompatActivity {
     DatabaseReference mDBR,userRef;
     List<Comment> commentsList;
     String postID,currentUserName;
+    private String ownerID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,9 +81,10 @@ public class PostDetials extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 final FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
-                DatabaseReference mRef = database.getReference("User").child(mUser.getUid());
-                Comment comment = new Comment(mUser.getUid(), comment_box.getText().toString().trim(),username,picture);
-                addComment(comment);
+                //DatabaseReference mRef = database.getReference("User").child(mUser.getUid());
+                Comment comment = new Comment(mUser.getUid(), comment_box.getText().toString().trim(),username,picture,detail);
+                CommentNotification commentNotification = new CommentNotification(mUser.getUid(), comment_box.getText().toString().trim(),username,picture,detail);
+                addComment(comment,commentNotification);
                 comment_box.setText("");
 
             }
@@ -93,17 +95,17 @@ public class PostDetials extends AppCompatActivity {
 
 
 
-    private void addComment(Comment comment){
-         //postID = getIntent().getExtras().getString("PostKey");
+    private void addComment(Comment comment,CommentNotification commentNotification){
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference mRef_addComment = firebaseDatabase.getReference("Posts").child(postID).child("Comments").push();
-
         String key = mRef_addComment.getKey();
         DatabaseReference userPostinUser = firebaseDatabase.getReference("User").child(id).child("Post").child(postID).child("Comments").child(key);
-
+        DatabaseReference owner = firebaseDatabase.getReference().child("Posts").child(postID);
+        DatabaseReference postRef = firebaseDatabase.getReference("User").child(ownerID).child("Post").child("Comments").child(key);
         comment.setPostKey(key);
         userPostinUser.setValue(comment);
-
+        commentNotification.setPostKey(key);
+        postRef.setValue(commentNotification);
         mRef_addComment.setValue(comment).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -152,9 +154,6 @@ public class PostDetials extends AppCompatActivity {
             }
         });
 
-
-
-
     }
 
     public void intitalData(){
@@ -166,7 +165,8 @@ public class PostDetials extends AppCompatActivity {
         comment_box = (EditText)findViewById(R.id.commet_box);
         send = (ImageView)findViewById(R.id.send);
         commentRecyclerView = findViewById(R.id.comment);
-        String detail = getIntent().getExtras().getString("Details");
+        detail = getIntent().getExtras().getString("Details");
+        ownerID = getIntent().getExtras().getString("ownerID");
         int pic = getIntent().getExtras().getInt("Picture");
         final String ownerName = getIntent().getExtras().getString("Name");
         postOwner_Detail.setText(detail);
@@ -190,28 +190,28 @@ public class PostDetials extends AppCompatActivity {
                     username = dataSnapshot.child("username").getValue().toString();
 
                     if(username.equals(ownerName)){reDelete.setText("ลบกระทู้");
-                    reDelete.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            DatabaseReference post = database.getReference().child("Posts").child(postID);
-                            DatabaseReference postinUser = database.getReference().child("User").child(id).child("Post").child(postID);
-                            postinUser.removeValue();
-                            post.removeValue();
-                            finish();
-                        }
-                    });
+                        reDelete.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                DatabaseReference post = database.getReference().child("Posts").child(postID);
+                                DatabaseReference postinUser = database.getReference().child("User").child(id).child("Post").child(postID);
+                                postinUser.removeValue();
+                                post.removeValue();
+                                finish();
+                            }
+                        });
                     }
 
                     else{reDelete.setText("รายงานกระทู้");
-                    reDelete.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent intent = new Intent(PostDetials.this,Report.class);
-                            startActivity(intent);
-                            reDelete.setVisibility(View.INVISIBLE);
-                            cancel.setVisibility(View.INVISIBLE);
-                        }
-                    });
+                        reDelete.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(PostDetials.this,Report.class);
+                                startActivity(intent);
+                                reDelete.setVisibility(View.INVISIBLE);
+                                cancel.setVisibility(View.INVISIBLE);
+                            }
+                        });
                     }
                     // if user isn't KMITL People
                     String type = dataSnapshot.child("inType").getValue().toString();
