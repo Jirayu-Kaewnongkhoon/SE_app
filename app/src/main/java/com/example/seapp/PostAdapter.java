@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> {
@@ -54,6 +55,24 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         holder.profile_name.setText(mData.get(position).getName());
         holder.post_detail.setText(mData.get(position).getDetail());
         holder.profile_img.setImageResource(mData.get(position).getPic());
+        mRef = FirebaseDatabase.getInstance().getReference("Posts").child(post.getPostKey()).child("Comments");
+        mRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<Comment> comments = new ArrayList<>();
+                for(DataSnapshot searchsnap : dataSnapshot.getChildren()){
+                    Comment searchHistory = searchsnap.getValue(Comment.class);
+                    comments.add(searchHistory);
+                }
+                int size = comments.size();
+                holder.commentCount.setText(String.valueOf(size));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

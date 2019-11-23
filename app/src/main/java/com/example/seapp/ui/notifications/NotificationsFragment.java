@@ -70,6 +70,8 @@ public class NotificationsFragment extends Fragment {
 
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        ((LinearLayoutManager) layoutManager).setStackFromEnd(true);
+        ((LinearLayoutManager) layoutManager).setReverseLayout(true);
         recycleView.setLayoutManager(layoutManager);
         if (user != null) {
             // Name, email address, and profile photo Url

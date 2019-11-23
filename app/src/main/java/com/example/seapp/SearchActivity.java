@@ -47,8 +47,8 @@ public class SearchActivity extends AppCompatActivity {
         setActionBarTitle();
 
         // Set button back before activity
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //set RecyclerView
         searchRecyclerView = (RecyclerView) findViewById(R.id.SearchRow);
@@ -113,7 +113,7 @@ public class SearchActivity extends AppCompatActivity {
                 for(DataSnapshot searchsnap : dataSnapshot.getChildren()){
                     SearchHistory searchHistory = searchsnap.getValue(SearchHistory.class);
 
-                    if(searchHistory.getDetail().contains(search_text)){
+                    if(searchHistory.getDetail().toLowerCase().contains(search_text.toLowerCase())){
                         searchList.add(searchHistory);
                     }
                 }
