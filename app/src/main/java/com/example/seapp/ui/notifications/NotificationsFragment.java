@@ -6,36 +6,140 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.seapp.MainActivity;
 import com.example.seapp.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NotificationsFragment extends Fragment {
 
     private NotificationsViewModel notificationsViewModel;
     private TextView title;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    public FirebaseDatabase database;
+    public DatabaseReference mRef;
+    //public ArrayList<String> arrayList=new ArrayList<>();
+    private RecyclerView recycleView;
+    adapterclass mPostAdapter;
+    List<CommentNotification> notilist;
+    String id,username,detail,postKey;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+
+
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Set title name in actionbar
-        ((MainActivity) getActivity())
-                .setActionBarTitle(getString(R.string.title_notifications));
-
-        notificationsViewModel =
-                ViewModelProviders.of(this).get(NotificationsViewModel.class);
+        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.title_notifications));
+        notificationsViewModel = ViewModelProviders.of(this).get(NotificationsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
-        final TextView textView = root.findViewById(R.id.text_notifications);
-        notificationsViewModel.getText().observe(this, new Observer<String>() {
+
+        recycleView = (RecyclerView) root.findViewById(R.id.recycleViewnoti);
+        database=FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String userUid=user.getUid();
+
+      //  mRef = database.getReference().child(userUid).child("Post");.child(userUid).child("Post").child("Comments");
+        mRef=database.getReference("User").child(userUid).child("Post").child("Comments");
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if(firebaseAuth.getCurrentUser() != null){
+
+                }
             }
-        });
+        };
+
+
+
+    //    Intent intent=new Intent(adapterclass.class);
+
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recycleView.setLayoutManager(layoutManager);
+        if (user != null) {
+            // Name, email address, and profile photo Url
+            String name = user.getDisplayName();
+            String email = user.getEmail();
+            id = user.getUid();
+
+
+            mRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+        }
+
+
         return root;
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+
+        mRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                notilist = new ArrayList<>();
+
+                for(DataSnapshot notisnap : dataSnapshot.getChildren()){
+                    CommentNotification value = notisnap.getValue(CommentNotification.class);
+                    notilist.add(value);
+
+                }
+
+                mPostAdapter = new adapterclass(getActivity(),notilist);
+                recycleView.setAdapter(mPostAdapter);
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+/*
+ public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                notilist = new ArrayList<>();
+
+                for(DataSnapshot notisnap : dataSnapshot.getChildren()){
+                    modelnotification value1 = notisnap.getValue(modelnotification.class);
+                    notilist.add(value1);
+
+                }
+
+                mPostAdapter = new adapterclass(getActivity(),notilist);
+                recycleView.setAdapter(mPostAdapter);
+            }
+
+
+*/
+    }
 }
+
+
