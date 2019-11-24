@@ -3,11 +3,11 @@
 
     <item
         android:id="@+id/KMITL"
-        android:title="บุคลากรภายใน "
+        android:title="บุคคลภายใน"
         />
     <item
         android:id="@+id/guest"
-        android:title="บุคลากรภายนอก  "
+        android:title="บุคคลภายนอก  "
         />
 
 </menu>

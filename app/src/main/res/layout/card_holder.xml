@@ -32,34 +32,6 @@
         app:layout_constraintTop_toTopOf="@+id/imagenoti" />
 
     <TextView
-        android:id="@+id/text_description"
-        android:layout_width="195dp"
-        android:layout_height="18dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:text="detail 135468789514687/98964156"
-        android:textAppearance="@style/LamoonRegular"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/between"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/between"
-        app:layout_constraintTop_toTopOf="@+id/between"
-        app:layout_constraintVertical_bias="0.333" />
-
-    <TextView
-        android:id="@+id/between"
-        android:layout_width="4dp"
-        android:layout_height="18dp"
-        android:text=":"
-        android:textAppearance="@style/LamoonRegular"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/text_namepost"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.02"
-        app:layout_constraintStart_toEndOf="@+id/text_namepost" />
-
-    <TextView
         android:id="@+id/text_namepost"
         android:layout_width="wrap_content"
         android:layout_height="18dp"

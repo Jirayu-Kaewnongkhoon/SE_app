@@ -54,7 +54,7 @@ public class NotificationsFragment extends Fragment {
         String userUid=user.getUid();
 
       //  mRef = database.getReference().child(userUid).child("Post");.child(userUid).child("Post").child("Comments");
-        mRef=database.getReference("User").child(userUid).child("Post").child("Comments");
+        mRef=database.getReference("User").child(userUid).child("Comments");
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {

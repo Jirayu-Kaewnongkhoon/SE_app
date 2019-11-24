@@ -39,7 +39,7 @@ public class PostDetials extends AppCompatActivity {
     private String id,detail,username;
     private int picture;
     private EditText comment_box;
-    private ImageView send,actionbar_report,actionbar_back,postOwner_Pic;
+    private ImageView send,actionbar_report,actionbar_back,postOwner_Pic, actionbar_logo;
     private TextView actionbar_title,postOwner_Name,postOwner_Detail;
     private TextView commentCount;
     //private ConstraintLayout reportLayout;
@@ -99,11 +99,11 @@ public class PostDetials extends AppCompatActivity {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference mRef_addComment = firebaseDatabase.getReference("Posts").child(postID).child("Comments").push();
         String key = mRef_addComment.getKey();
-        DatabaseReference userPostinUser = firebaseDatabase.getReference("User").child(id).child("Post").child(postID).child("Comments").child(key);
+        DatabaseReference userPostinUser = firebaseDatabase.getReference("User").child(ownerID).child("Post").child(postID).child("Comments").child(key);
         DatabaseReference owner = firebaseDatabase.getReference().child("Posts").child(postID);
 
         if(!user.getUid().equals(ownerID)) {
-            DatabaseReference postRef = firebaseDatabase.getReference("User").child(ownerID).child("Post").child("Comments").child(key);
+            DatabaseReference postRef = firebaseDatabase.getReference("User").child(ownerID).child("Comments").child(key);
             postRef.setValue(commentNotification);
             commentNotification.setPostKey(key);
         }
@@ -136,10 +136,13 @@ public class PostDetials extends AppCompatActivity {
         //setActionbar
         actionbar_report = findViewById(R.id.actionbar_search);
         actionbar_report.setImageResource(R.drawable.additional_orange);
-        actionbar_back =  findViewById(R.id.actionbar_logo);
+        actionbar_logo =  findViewById(R.id.actionbar_logo);
+        actionbar_logo.setVisibility(View.GONE);
         actionbar_title = (TextView) findViewById(R.id.action_bar_title);
         actionbar_title.setText("CS TALK");
-        actionbar_back.setImageResource(R.drawable.backarrow_grey);
+        actionbar_back = findViewById(R.id.actionbar_back2);
+        actionbar_back.setVisibility(View.VISIBLE);
+        actionbar_back.setImageResource(R.drawable.icon_backactivity);
         postOwner_Pic = (ImageView)findViewById(R.id.postOwner_image);
         postOwner_Name = (TextView)findViewById(R.id.postOwner_username);
         postOwner_Detail = (TextView)findViewById(R.id.postOwner_detail);
@@ -200,7 +203,7 @@ public class PostDetials extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 DatabaseReference post = database.getReference().child("Posts").child(postID);
-                                DatabaseReference postinUser = database.getReference().child("User").child(id).child("Post").child(postID);
+                                DatabaseReference postinUser = database.getReference().child("User").child(ownerID).child("Post").child(postID);
                                 postinUser.removeValue();
                                 post.removeValue();
                                 finish();

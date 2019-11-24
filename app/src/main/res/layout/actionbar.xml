@@ -16,9 +16,20 @@
             android:id="@+id/actionbar_logo"
             android:layout_width="74dp"
             android:layout_height="wrap_content"
+            android:visibility="visible"
             android:layout_gravity="center"
             android:layout_weight="2"
             app:srcCompat="@drawable/icon_logo" />
+
+        <ImageView
+            android:id="@+id/actionbar_back2"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="2"
+            app:srcCompat="@drawable/icon_backactivity" />
 
         <TextView
             android:id="@+id/action_bar_title"

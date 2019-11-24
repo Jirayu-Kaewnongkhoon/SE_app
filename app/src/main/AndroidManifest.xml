@@ -31,8 +31,7 @@
             android:name=".RegisterSuccess"
             android:theme="@style/AppTheme.Dialog" />
         <activity
-            android:name=".Register"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".Register" />
         <activity
             android:name=".register2"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -45,6 +44,9 @@
         <activity
             android:name=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".lastIntroActivity"></activity>
+        <activity android:name=".IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

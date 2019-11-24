@@ -6,16 +6,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.PagerAdapter;
 
 import com.example.seapp.LoginActivity;
 import com.example.seapp.MainActivity;
@@ -37,6 +34,7 @@ public class HomeFragment extends Fragment  {
 
     private HomeViewModel homeViewModel;
     private TextView txt;
+    private ProgressBar progressBar;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     PostAdapter mPostAdapter;
@@ -53,6 +51,8 @@ public class HomeFragment extends Fragment  {
                 .setActionBarTitle(getString(R.string.title_home));
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
+        progressBar = root.findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
@@ -62,6 +62,7 @@ public class HomeFragment extends Fragment  {
 
         //set RecyclerView
         postRecyclerView = root.findViewById(R.id.PostRow);
+        postRecyclerView.setVisibility(View.GONE);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         //new post will appear on top
         layoutManager.setStackFromEnd(true);
@@ -114,6 +115,11 @@ public class HomeFragment extends Fragment  {
 
 
         }// if(User!=null)
+        else {
+            Intent intent = new Intent(root.getContext(), LoginActivity.class);
+            startActivity(intent);
+            getActivity().finish();
+        }
 
 
 
@@ -126,7 +132,6 @@ public class HomeFragment extends Fragment  {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         mAuth.addAuthStateListener(mAuthListener);
-
         // Get List Posts from database
         mDBR.addValueEventListener(new ValueEventListener() {
             @Override
@@ -139,6 +144,8 @@ public class HomeFragment extends Fragment  {
 
                 mPostAdapter = new PostAdapter(getActivity(),postList);
                 postRecyclerView.setAdapter(mPostAdapter);
+                progressBar.setVisibility(View.GONE);
+                postRecyclerView.setVisibility(View.VISIBLE);
             }
 
             @Override

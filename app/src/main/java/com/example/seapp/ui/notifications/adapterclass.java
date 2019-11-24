@@ -41,8 +41,8 @@ public class adapterclass extends RecyclerView.Adapter<adapterclass.Holder>     
     public void onBindViewHolder(@NonNull Holder holder, int position)
     {
         holder.textTitle.setText(notilist.get(position).getPostTopic());
-        holder.textnamepost.setText(notilist.get(position).getName());
-        holder.textDescription.setText(notilist.get(position).getDetail());
+        holder.textnamepost.setText(notilist.get(position).getName()+"  :  "+notilist.get(position).getDetail());
+        //holder.textDescription.setText(notilist.get(position).getDetail());
         holder.imagenoti.setImageResource(R.drawable.back_orange);
     }
 
@@ -67,7 +67,7 @@ public class adapterclass extends RecyclerView.Adapter<adapterclass.Holder>     
             super(itemView);
             textTitle = itemView.findViewById(R.id.text_title);
             textnamepost = itemView.findViewById(R.id.text_namepost);
-            textDescription =itemView.findViewById(R.id.text_description);
+            //textDescription =itemView.findViewById(R.id.text_description);
             imagenoti =itemView.findViewById(R.id.imagenoti);
 
         }

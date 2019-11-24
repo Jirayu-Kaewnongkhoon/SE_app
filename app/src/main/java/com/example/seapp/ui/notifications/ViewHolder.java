@@ -23,9 +23,9 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     {
         TextView mpost=mView.findViewById(R.id.text_title);
         TextView mname=mView.findViewById(R.id.text_title);
-        TextView mcom=mView.findViewById(R.id.text_description);
+        //TextView mcom=mView.findViewById(R.id.text_description);
 
         mname.setText(username);
-        mcom.setText(comment);
+        //mcom.setText(comment);
     }
 }

@@ -27,6 +27,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="25dp"
             android:layout_marginStart="25dp"
+            android:inputType="text"
             android:background="@drawable/bordertextview"
             android:backgroundTint="#cccccc"
             android:drawableLeft="@drawable/ic_search_black_24dp"
