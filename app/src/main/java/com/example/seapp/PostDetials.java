@@ -51,7 +51,7 @@ public class PostDetials extends AppCompatActivity {
     DatabaseReference mDBR,userRef;
     List<Comment> commentsList;
     String postID,currentUserName;
-    private String ownerID;
+    private String ownerID,ownerName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,7 +177,7 @@ public class PostDetials extends AppCompatActivity {
         detail = getIntent().getExtras().getString("Details");
         ownerID = getIntent().getExtras().getString("ownerID");
         int pic = getIntent().getExtras().getInt("Picture");
-        final String ownerName = getIntent().getExtras().getString("Name");
+        ownerName = getIntent().getExtras().getString("Name");
         postOwner_Detail.setText(detail);
         postOwner_Name.setText(ownerName);
         postOwner_Pic.setImageResource(pic);
@@ -198,7 +198,7 @@ public class PostDetials extends AppCompatActivity {
                 public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
                     username = dataSnapshot.child("username").getValue().toString();
 
-                    if(username.equals(ownerName)){reDelete.setText("ลบกระทู้");
+                    if(username.equals(ownerName) || id.equals("R5cKy3irp6dW14NrZlMNIokx3j43")){reDelete.setText("ลบกระทู้");
                         reDelete.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -216,6 +216,9 @@ public class PostDetials extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 Intent intent = new Intent(PostDetials.this,Report.class);
+                                intent.putExtra("Name",ownerName);
+                                intent.putExtra("Detail",detail);
+                                intent.putExtra("PostKey",postID);
                                 startActivity(intent);
                                 reDelete.setVisibility(View.INVISIBLE);
                                 cancel.setVisibility(View.INVISIBLE);
@@ -231,6 +234,10 @@ public class PostDetials extends AppCompatActivity {
                         } else {
                             picture = R.drawable.girl;
                         }
+                    }
+                    //Admin
+                    else if (id.equals("R5cKy3irp6dW14NrZlMNIokx3j43")){
+                        picture = R.mipmap.logocrop;
                     }
                     //KMITL GUYS
                     else {

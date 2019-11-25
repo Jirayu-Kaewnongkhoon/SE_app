@@ -38,6 +38,7 @@ public class SearchFriend extends AppCompatActivity {
     private ConstraintLayout friend_layout;
     private DatabaseReference friendRef;
     private String friendID;
+    String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +98,10 @@ public class SearchFriend extends AppCompatActivity {
                                 else{
                                     friendPic.setImageResource(R.drawable.girl);
                                 }
+                            }
+                            //Admin
+                            else if (user.getUid().equals("R5cKy3irp6dW14NrZlMNIokx3j43")){
+                                friendPic.setImageResource(R.mipmap.logocrop);
                             }
                             else{
                                 String pic = dataSnapshot.child("pic").getValue().toString();
@@ -168,7 +173,7 @@ public class SearchFriend extends AppCompatActivity {
 
         //Intital User Data
         if (user != null) {
-            String id;
+            //String id;
             id = user.getUid();
             final DatabaseReference myRef = database.getReference("User").child(id);
             myRef.addValueEventListener(new ValueEventListener() {
@@ -186,6 +191,10 @@ public class SearchFriend extends AppCompatActivity {
                         else{
                             userPic.setImageResource(R.drawable.girl);
                         }
+                    }
+                    //Admin
+                    else if (id.equals("R5cKy3irp6dW14NrZlMNIokx3j43")){
+                        userPic.setImageResource(R.mipmap.logocrop);
                     }
                     //KMITL GUYS
                     else {

@@ -88,6 +88,10 @@ public class AdditionalFragment extends Fragment {
                             userPic.setImageResource(R.drawable.girl);
                         }
                     }
+                    //Admin
+                    else if (id.equals("R5cKy3irp6dW14NrZlMNIokx3j43")){
+                        userPic.setImageResource(R.mipmap.logocrop);
+                    }
                     //KMITL GUYS
                     else {
                         String pic = dataSnapshot.child("pic").getValue().toString();

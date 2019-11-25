@@ -107,6 +107,10 @@ public class FriendActivity extends AppCompatActivity {
                         friendPic.setImageResource(R.drawable.girl);
                     }
                 }
+                //Admin
+                else if (user.getUid().equals("R5cKy3irp6dW14NrZlMNIokx3j43")){
+                    friendPic.setImageResource(R.mipmap.logocrop);
+                }
                 else{
                     String pic = dataSnapshot.child("pic").getValue().toString();
                     if(pic.equals("Boy")){

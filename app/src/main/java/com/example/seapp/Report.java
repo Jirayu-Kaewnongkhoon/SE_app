@@ -10,6 +10,10 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class Report extends AppCompatActivity {
@@ -30,6 +34,11 @@ public class Report extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),"รายงานสำเร็จ",Toast.LENGTH_LONG).show();
+                String name = getIntent().getExtras().getString("Name");
+                String detail = getIntent().getExtras().getString("Detail");
+                String postID = getIntent().getExtras().getString("PostKey");
+                ReportNotification reportNotification = new ReportNotification(postID, detail, name);
+                addreportNotification(reportNotification);
                 finish();
             }
         });
@@ -66,6 +75,18 @@ public class Report extends AppCompatActivity {
             }
         });//setOncheck
     }//Oncreate
+
+    private void addreportNotification(ReportNotification reportNotification){
+        DatabaseReference ref_report = FirebaseDatabase.getInstance().getReference("User").child("R5cKy3irp6dW14NrZlMNIokx3j43")
+                .child("Report").push();
+        ref_report.setValue(reportNotification).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(getApplicationContext(), "รีพอร์ทสำเร็จ", Toast.LENGTH_SHORT);
+            }
+        });
+    }
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();

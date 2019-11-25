@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.seapp.MainActivity;
 import com.example.seapp.R;
+import com.example.seapp.ReportAdapter;
+import com.example.seapp.ReportNotification;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -37,6 +39,8 @@ public class NotificationsFragment extends Fragment {
     private RecyclerView recycleView;
     adapterclass mPostAdapter;
     List<CommentNotification> notilist;
+    ReportAdapter mReportAdapter;
+    List<ReportNotification> reportlist;
     String id,username,detail,postKey;
 
 
@@ -103,27 +107,55 @@ public class NotificationsFragment extends Fragment {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
 
-        mRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                notilist = new ArrayList<>();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        //check Admin or normal user
+        if(user.getUid().equals("R5cKy3irp6dW14NrZlMNIokx3j43")){
+            DatabaseReference report_ref = FirebaseDatabase.getInstance().getReference("User").child("R5cKy3irp6dW14NrZlMNIokx3j43")
+                    .child("Report");
+            report_ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    reportlist = new ArrayList<>();
 
-                for(DataSnapshot notisnap : dataSnapshot.getChildren()){
-                    CommentNotification value = notisnap.getValue(CommentNotification.class);
-                    notilist.add(value);
+                    for(DataSnapshot reportsnap : dataSnapshot.getChildren()){
+                        ReportNotification value = reportsnap.getValue(ReportNotification.class);
+                        reportlist.add(value);
 
+                    }
+
+                    mReportAdapter = new ReportAdapter(getActivity(),reportlist);
+                    recycleView.setAdapter(mReportAdapter);
                 }
 
-                mPostAdapter = new adapterclass(getActivity(),notilist);
-                recycleView.setAdapter(mPostAdapter);
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+        else{
+            mRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    notilist = new ArrayList<>();
+
+                    for(DataSnapshot notisnap : dataSnapshot.getChildren()){
+                        CommentNotification value = notisnap.getValue(CommentNotification.class);
+                        notilist.add(value);
+
+                    }
+
+                    mPostAdapter = new adapterclass(getActivity(),notilist);
+                    recycleView.setAdapter(mPostAdapter);
+                }
 
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }
 
 /*
  public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

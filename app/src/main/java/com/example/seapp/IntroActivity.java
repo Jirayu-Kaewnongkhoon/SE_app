@@ -71,9 +71,9 @@ public class IntroActivity extends AppCompatActivity {
         // fill list screen
 
         final List<ScreenItem> mList = new ArrayList<>();
-        mList.add(new ScreenItem(R.drawable.logo, R.color.cs_green));
-        mList.add(new ScreenItem(R.drawable.talk, R.color.cs_orange));
-        mList.add(new ScreenItem(R.drawable.page3, R.color.cs_orange));
+        mList.add(new ScreenItem(R.mipmap.logo, R.color.cs_green));
+        mList.add(new ScreenItem(R.mipmap.talk, R.color.cs_orange));
+        mList.add(new ScreenItem(R.mipmap.page3, R.color.cs_orange));
 
         // setup viewpager
         screenPager =findViewById(R.id.screen_viewpager);

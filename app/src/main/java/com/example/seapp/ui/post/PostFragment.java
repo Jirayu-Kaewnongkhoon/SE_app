@@ -105,6 +105,11 @@ public class PostFragment extends Fragment {
                             picture = R.drawable.girl;
                         }
                     }
+                    //Admin
+                    else if (id.equals("R5cKy3irp6dW14NrZlMNIokx3j43")){
+                        userPic.setImageResource(R.mipmap.logocrop);
+                        picture = R.mipmap.logocrop;
+                    }
                     //KMITL GUYS
                     else {
                         String pic = dataSnapshot.child("pic").getValue().toString();
